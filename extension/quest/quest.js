@@ -153,7 +153,7 @@ function getPoints() {
 }
 
 function savePoints(points) {
-  chrome.storage.local.set({ points }, () => {
+  chrome.storage.local.set({ 'points' : points }, () => {
   });
 }
 
