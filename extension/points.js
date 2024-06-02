@@ -32,3 +32,26 @@ async function getInterval() {
 async function setInterval(interval) {
   await chrome.storage.local.set({ interval });
 }
+
+async function getSkipsLeft() {
+  const result = await chrome.storage.local.get(["skipsLeft"]);
+  return result?.skipsLeft || 0;
+}
+
+async function setSkipsLeft(skipsLeft) {
+  await chrome.storage.local.set({ skipsLeft });
+}
+
+async function buySkip() {
+  const points = await getPoints();
+  if (points >= 10) {
+    await setPoints(points - 10);
+    const skipsLeft = await getSkipsLeft();
+    await setSkipsLeft(skipsLeft + 1);
+    alert("You have successfully bought a skip!");
+  } else {
+    alert("Not enough points to buy a skip!");
+  }
+}
+
+

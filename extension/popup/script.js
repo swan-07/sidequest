@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("buy-skip-button").addEventListener("click", buySkip);
+
   const statPointsEl = document.querySelector(".stat-points");
   const statQuestsEl = document.querySelector(".stat-quests");
   const intervalEl = document.querySelector(".interval-input")
