@@ -1,6 +1,9 @@
 body {
     background-color: pink;
 }
+p.nunito-text {
+    font-size: 16px;
+}
 .nunito-text {
     font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
