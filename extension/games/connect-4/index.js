@@ -150,6 +150,7 @@ function clickColumn(x) {
 function showWinDialog() {
   if (!won) return;
 
+  chrome.runtime.sendMessage({ type: "done" });
   const dialog = document.querySelector("dialog");
   const p = dialog.querySelector("p")
 
@@ -187,7 +188,7 @@ function update() {
   }
   
   let newWinner = chkWinner(board);
-  if (newWinner) {
+  if (newWinner && !won) {
     won = true;
     winner = newWinner;
     boardEl.setAttribute("winner", winner);

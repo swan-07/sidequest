@@ -1,5 +1,4 @@
 const QUESTS = [
-
   // {
   //   "name": "Touch some grass",
   //   "file": "/games/touch-grass/index.html",
@@ -16,11 +15,11 @@ const QUESTS = [
   //   "difficulty": 1
   // },
   
-  // {
-  //   "name": "Connect Four",
-  //   "file": "/games/connect-4/index.html",
-  //   "difficulty": 3
-  // },
+  {
+    "name": "Connect Four",
+    "file": "/games/connect-4/index.html",
+    "difficulty": 3
+  },
   
   // {
   //   "name": "Amazing quest 2",
@@ -33,16 +32,16 @@ const QUESTS = [
   //   "file": "very wow",
   //   "difficulty": 1
   // },
-  {
-    "name": "small sidequest",
-    "file": "/games/text/index.html",
-    "difficulty": 1
-  }
+  // {
+  //   "name": "small sidequest",
+  //   "file": "/games/text/index.html",
+  //   "difficulty": 1
+  // }
 ];
 
 let ourId = null;
 
-chrome.runtime.onMessage.addListener(function(message) {
+chrome.runtime.onMessage.addListener(function(message, sender) {
   if (message.type == "id") {
     ourId = message.id;
   }
@@ -53,7 +52,7 @@ function sleep(ms) {
 }
 
 async function questRoll() {
-  const iterations = 1;
+  const iterations = 10;
   const questEl = document.querySelector(".quest");
   let randomQuest;
 
@@ -72,6 +71,11 @@ async function questRoll() {
   }
   
   questEl.setAttribute("shine", "");
+  chrome.runtime.sendMessage({
+    type: "location-indication",
+    file: randomQuest.file
+  })
+
   await sleep(2000);
 
   const windowHeight = 500;
@@ -88,11 +92,6 @@ async function questRoll() {
     height: windowHeight,
     top: top,
     left: left
-  })
-  
-  chrome.runtime.sendMessage({
-    type: "location-indication",
-    file: randomQuest.file
   })
 
   document.location = randomQuest.file;
