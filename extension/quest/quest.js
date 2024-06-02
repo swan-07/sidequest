@@ -32,18 +32,23 @@ function sleep(ms) {
 async function questRoll() {
   const iterations = 10;
   const questEl = document.querySelector(".quest");
+  let randomQuest;
+
   for (let i = 0; i < iterations; i++) {
     let t = (i+1)/iterations;
 
-    let randomQuest = QUESTS[Math.floor(Math.random() * QUESTS.length)];
+    randomQuest = QUESTS[Math.floor(Math.random() * QUESTS.length)];
 
     questEl.setAttribute("pop", "a");
     questEl.textContent = randomQuest.name;
 
-    await sleep(1000*(t));
+    await sleep(800*((t*0.9)+0.1));
     questEl.setAttribute("pop", "b");
     await sleep(1);
   }
+
+  questEl.setAttribute("shine", "");
+  document.location = randomQuest.file;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
