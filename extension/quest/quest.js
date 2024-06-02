@@ -102,23 +102,77 @@ function spin() {
   alert("Displayed symbol:", displayedSymbol);
 
     
-  symbols.style.transition = 'top 0.5s ease-in-out';
+  symbols.style.transition = 'top 0.5s';
   console.log("hi");
 
   spun = true;
 }
 
-function reset() {
-    const slot = document.querySelector('.slot');
-    const symbols = slot.querySelector('.symbols');
-    symbols.style.transition = 'none';
-    symbols.style.top = '0px';
-    symbols.offsetHeight;  // Trigger reflow
-    symbols.style.transition = 'top 0.5s ease-in-out';
+function checkTransform(symbols, index, callback) {
+  transform = Number(window.getComputedStyle(symbols).getPropertyValue("transform").replace("matrix(", "").replace(")", "").split(',')[5]);
+  console.log(transform);
+  if (!isNaN(transform) && (transform <= -1 * index * symbols.children[0].clientHeight + 5 && transform >= -1 * index * symbols.children[0].clientHeight - 5)){
+    symbols.removeEventListener('animationend', callback);
+    symbols.style.animationPlayState = 'paused';
+  }
+
+  else {
+    setTimeout(() => checkTransform(symbols, index, callback), 100);
+  }
 }
 
+async function spin2() {
+  reset();
+
+  const slot = document.querySelector('.slot');
+  const symbols = slot.querySelector('.symbols');
+  var duration = 0.1;
+  var change = 0.005;
+  var changeChange = 1;
+  var notSelected = true;
+  symbols.style.animation = `spin ${duration}s linear`;
+
+  symbols.addEventListener('animationend', async function x() {
+    if (duration > 2 && notSelected) {
+
+      /*symbols.style.animation = 'none';
+      symbols.offsetHeight;  // Trigger reflow
+      symbols.style.transition = '2s ease-in-out';*/
+      let index = Math.floor(Math.random() * QUESTS.length);
+      notSelected = false;
+      /*symbols.style.transform = `translateY(${-1 * index * symbols.children[0].clientHeight}px)`;
+      console.log(symbols.style.transform);*/
+      
+      // await sleep(2000);
+      // document.location = QUESTS[index].fil;
+      checkTransform(this, index, x)
+    }
+    duration += change;
+    change += 0.1 * Math.pow(5, changeChange);
+    changeChange += 0.1;
+    symbols.style.transform = 'none';
+    symbols.style.animation = "none";
+    symbols.offsetHeight;  // Trigger reflow
+    symbols.style.animation = `spin ${duration}s linear`;
+    console.log(duration);
+  });
+}
+
+function reset() {
+    const symbols = document.querySelector('.symbols');
+    symbols.children = [];
+    console.log("asdofjsa");
+    
+    QUESTS.forEach(quest => {
+      symbols.appendChild(createSymbolElement(quest.name));
+      console.log("hi");
+    });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-  spin();
+  spin2();
   console.log("hi");
+
+  document.querySelector('.spin').addEventListener('click', spin2);
+  document.querySelector('.reset').addEventListener('click', reset);
 });

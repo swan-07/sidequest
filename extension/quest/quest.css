@@ -50,8 +50,22 @@ body {
   padding-top: 25px;
 }
 
+.symbols {
+  animation: spin 0.1s linear;
+  animation-delay: 0s;
+}
+
 button {
   margin: 0 10px;
   padding: 10px 20px;
   font-size: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1050px);
+  }
 }
