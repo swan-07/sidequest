@@ -91,11 +91,13 @@ function spin() {
   QUESTS.forEach(quest => {
     symbols.appendChild(createSymbolElement(quest.name));
   });
-
+  
   const randomOffset = -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
     
   symbols.style.transition = 'top 0.5s ease-in-out';
   symbols.style.top = `${randomOffset}px`;
+  console.log(QUESTS[Math.random() * (symbolCount - 1)].name);
+  console.log("hi");
 
   spun = true;
 }
@@ -105,11 +107,12 @@ function reset() {
     const symbols = slot.querySelector('.symbols');
     symbols.style.transition = 'none';
     symbols.style.top = '0px';
-    symbols.offsetHeight = '0px';  // Trigger reflow
+    symbols.offsetHeight;  // Trigger reflow
     symbols.style.transition = 'top 0.5s ease-in-out';
 }
 
 
 document.addEventListener("DOMContentLoaded", () => {
   spin();
+  console.log("hi");
 });
