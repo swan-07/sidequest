@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Sidequest",
-  "description": "{description}",
+  "description": "Fun extension that gives you required sidequests every few minutes to increase productivity and break you out of your scrolling habit.",
   "version": "0.0.1",
   "icons": {
       "16": "icon/icon-16.png",
