@@ -1,5 +1,5 @@
-const WINDOW_HEIGHT = 340;
-const WINDOW_WIDTH = 220;
+const WINDOW_HEIGHT = 400;
+const WINDOW_WIDTH = 400;
 let activeWindowId = undefined;
 
 async function showQuest() {
