@@ -1,33 +1,3 @@
-const QUESTS = [
-   {
-     "name": "touch grass",
-     "file": "/games/touch-grass/index.html",
-     "difficulty": 5
-   },
-   {
-     "name": "chess",
-     "file": "/games/chess/index.html",
-     "difficulty": 2
-   },
-   {
-     "name": "captcha",
-     "file": "/games/captcha/index.html",
-     "difficulty": 2
-   },
-  
-   {
-     "name": "Connect Four",
-     "file": "/games/connect-4/index.html",
-     "difficulty": 3
-   },
-  
-  {
-    "name": "small sidequest",
-    "file": "/games/text/index.html",
-    "difficulty": 1
-  }
-];
-
 let ourId = null;
 
 chrome.runtime.onMessage.addListener(function(message, sender) {
@@ -41,6 +11,9 @@ function sleep(ms) {
 }
 
 async function questRoll() {
+  const response = await fetch(chrome.runtime.getURL("quests.json"))
+  const quests = await response.json();
+
   const iterations = 10;
   const questEl = document.querySelector(".quest");
   let randomQuest;
@@ -48,7 +21,7 @@ async function questRoll() {
   for (let i = 0; i < iterations; i++) {
     let t = (i+1)/iterations;
 
-    randomQuest = QUESTS[Math.floor(Math.random() * QUESTS.length)];
+    randomQuest = quests[Math.floor(Math.random() * quests.length)];
     showStars(randomQuest);
 
     questEl.setAttribute("pop", "a");
@@ -60,9 +33,10 @@ async function questRoll() {
   }
   
   questEl.setAttribute("shine", "");
+  const targetURL = chrome.runtime.getURL(`/games/${randomQuest.id}/index.html`)
   chrome.runtime.sendMessage({
     type: "location-indication",
-    file: randomQuest.file
+    file: targetURL
   })
 
   await sleep(2000);
@@ -82,7 +56,7 @@ async function questRoll() {
     left: left
   })
 
-  document.location = randomQuest.file;
+  document.location = targetURL;
 }
 
 function showStars(randomQuest){

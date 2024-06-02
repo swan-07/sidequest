@@ -1,0 +1,29 @@
+[
+  {
+    "name": "touch grass",
+    "id": "touch-grass",
+    "difficulty": 5
+  },
+  {
+    "name": "chess",
+    "id": "chess",
+    "difficulty": 2
+  },
+  {
+    "name": "captcha",
+    "id": "captcha",
+    "difficulty": 2
+  },
+ 
+  {
+    "name": "Connect Four",
+    "id": "connect-4",
+    "difficulty": 3
+  },
+ 
+ {
+   "name": "small sidequest",
+   "id": "text",
+   "difficulty": 1
+ }
+]

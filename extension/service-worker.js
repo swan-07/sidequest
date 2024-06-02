@@ -8,7 +8,20 @@ let gameInProgress = false;
 let location = null;
 let inProgressTimeout = null;
 
+// BEGIN FROM POINTS.JS
+async function getPoints() {
+  const result = await chrome.storage.local.get(["points"]);
+  return result?.points || 0;
+}
 
+async function setPoints(points) {
+  await chrome.storage.local.set({ points });
+}
+
+async function awardPoints(awardedPoints = 1) {
+  await setPoints((await getPoints()) + awardedPoints)
+}
+// END POINTS.JS
 
 chrome.runtime.onMessage.addListener((message, sender) => {
   console.log(message, sender);
