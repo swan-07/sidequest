@@ -36,6 +36,18 @@ class Game {
     if (whiteCheckmate || blackCheckmate) {
       Dom.message('Checkmate ' + (whiteCheckmate ? 'black' : 'white') + ' wins.');
     }
+    if (!whiteToPlay) {
+      let choices = board.squaresByColour('black')
+      let choice = choices[Math.floor(Math.random() * choices.length)]
+      let moves = choice.piece.availableSquares()
+      while (moves.length == 0) {
+        choice = choices[Math.floor(Math.random() * choices.length)]
+        moves = choice.piece.availableSquares()
+      }
+
+      choice.domElement.click()
+      moves[Math.floor(Math.random() * moves.length)].domElement.click()
+    }
   }
 
   static isInCheck(colour) {

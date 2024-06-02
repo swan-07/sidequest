@@ -56,4 +56,8 @@ class Board {
       .filter(square => square.piece && square.piece.colour === colour)
       .map(square => square.piece);
   }
+
+  squaresByColour(colour) {
+    return this.board.filter(square => square.piece && square.piece.colour === colour);
+  }
 }
