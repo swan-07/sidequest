@@ -25,5 +25,11 @@
    "name": "small sidequest",
    "id": "text",
    "difficulty": 1
+ },
+ 
+ {
+  "name": "Be kind",
+  "id": "kindness",
+  "difficulty": 2
  }
 ]

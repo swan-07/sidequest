@@ -19,10 +19,21 @@ async function setSkipsLeft(skipsLeft) {
   await chrome.storage.local.set({ skipsLeft });
 }
 
+
 async function questRoll() {
   const response = await fetch(chrome.runtime.getURL("quests.json"));
   const quests = await response.json();
 
+  const randomState = await getRandomState();
+
+  if (randomState) {
+    await performRandomRoll(quests);
+  } else {
+    showQuestDropdown(quests);
+  }
+}
+
+async function performRandomRoll(quests) {
   const iterations = 10;
   const questEl = document.querySelector(".quest");
   let randomQuest;
@@ -52,6 +63,7 @@ async function questRoll() {
 
   showConfirmation(randomQuest, targetURL);
 }
+
 
 function showStars(randomQuest) {
   const starElements = [...new Array(5)].map((_, index) => document.querySelector(`#star${index + 1}`));
@@ -131,3 +143,35 @@ document.addEventListener('DOMContentLoaded', async () => {
   await registerQuest();
   await questRoll();
 });
+
+async function getRandomState() {
+  const result = await chrome.storage.local.get(["random"]);
+  return result?.random || true;
+}
+
+function showQuestDropdown(quests) {
+  const dropdownContainer = document.getElementById("quest-dropdown-container");
+  const questDropdown = document.getElementById("quest-dropdown");
+
+  // Clear existing options
+  questDropdown.innerHTML = "";
+
+  // Populate dropdown with quests
+  quests.forEach(quest => {
+    const option = document.createElement("option");
+    option.value = quest.id;
+    option.text = quest.name;
+    questDropdown.appendChild(option);
+  });
+
+  dropdownContainer.style.display = "block";
+
+  document.getElementById("select-quest-button").addEventListener("click", () => {
+    const selectedQuestId = questDropdown.value;
+    const selectedQuest = quests.find(quest => quest.id === selectedQuestId);
+    const targetURL = chrome.runtime.getURL(`/games/${selectedQuest.id}/index.html`);
+
+    showStars(selectedQuest);
+    showConfirmation(selectedQuest, targetURL);
+  });
+}

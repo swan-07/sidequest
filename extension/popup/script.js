@@ -1,3 +1,16 @@
+const images = [
+  "gacha/img1.jpg", 
+  "gacha/img3.jpg",
+  "gacha/img2.jpg", 
+  "gacha/img3.jpg",
+  "gacha/img4.jpg",
+  "gacha/img5.jpg",
+  "gacha/img6.jpg",
+  "gacha/img7.jpg",
+  "gacha/img8.jpg",
+  "gacha/img9.jpg"
+];
+
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("buy-skip-button").addEventListener("click", buySkip);
 
@@ -7,18 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const rollButton = document.getElementById("roll-button");
   const gachaResultEl = document.getElementById("gacha-result");
   const collectionEl = document.getElementById("collection");
-  const images = [
-    "gacha/img1.jpg", 
-    "gacha/img3.jpg",
-    "gacha/img2.jpg", 
-    "gacha/img3.jpg",
-    "gacha/img4.jpg",
-    "gacha/img5.jpg",
-    "gacha/img6.jpg",
-    "gacha/img7.jpg",
-    "gacha/img8.jpg",
-    "gacha/img9.jpg"
-  ];
 
   getPoints().then(points => {
     updatePointsDisplay(points);
@@ -28,9 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
     statQuestsEl.textContent = "You've been interrupted " + Intl.NumberFormat().format(questCount) + (questCount == 1 ? " time" : " times") + " ⏰"
   })
 
-  getInterval().then(interval => intervalEl.value = interval);
+  getAlarmInterval().then(interval => intervalEl.value = interval);
   intervalEl.addEventListener("change", () => {
-    setInterval(intervalEl.value);
+    setAlarmInterval(intervalEl.value);
   })
 
   loadCollection().then(collection => {
@@ -49,6 +50,32 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+async function getPoints() {
+  const result = await chrome.storage.local.get(["points"]);
+  return result?.points || 0;
+}
+
+async function setPoints(points) {
+  await chrome.storage.local.set({ points });
+}
+
+async function awardPoints(awardedPoints = 1) {
+  await setPoints((await getPoints()) + awardedPoints);
+}
+
+async function getQuestCount() {
+  const result = await chrome.storage.local.get(["questCount"]);
+  return result?.questCount || 0;
+}
+
+async function registerQuest() {
+  const result = await chrome.storage.local.get(["questCount"]);
+
+  await chrome.storage.local.set({
+    questCount: (result?.questCount || 0) + 1
+  });
+}
+
 async function loadCollection() {
   const result = await chrome.storage.local.get(["collection"]);
   return result?.collection || [];
@@ -63,6 +90,7 @@ async function addToCollection(imageData) {
   }
   return collection;
 }
+
 
 function updatePointsDisplay(points) {
   const statPointsEl = document.querySelector(".stat-points");
@@ -85,16 +113,35 @@ function rollGacha(images, gachaResultEl, collectionEl) {
   const flashInterval = 100; // Interval between image flashes in ms
   let currentImageIndex = 0;
 
-  const flashImages = setInterval(() => {
-    gachaResultEl.innerHTML = `<img src="${images[currentImageIndex]}" alt="Rolling...">`;
+  const imageEl = document.createElement("img");
+  gachaResultEl.appendChild(imageEl);
+
+  const flashImagesInterval = setInterval(() => {
+    console.log("INTERVAL CALLED");
+    imageEl.setAttribute("src", images[currentImageIndex])
     currentImageIndex = (currentImageIndex + 1) % images.length;
   }, flashInterval);
 
+  console.log("FLASH IMAGE INTERVAL ", flashImagesInterval, "AIUF#NYI");
+
   setTimeout(async () => {
-    clearInterval(flashImages);
+    console.log("interval cleared.");
+    clearInterval(flashImagesInterval);
+    
+    confetti({
+      particleCount: 2000,
+      spread: 180,
+      origin: { y: 0.8 },
+    });
+
     const resultImage = images[Math.floor(Math.random() * images.length)];
-    gachaResultEl.innerHTML = `<img src="${resultImage}" alt="You won!">`;
+    imageEl.setAttribute("src", resultImage);
+    imageEl.setAttribute("won", "");
     const updatedCollection = await addToCollection(resultImage);
     updateCollectionDisplay(updatedCollection);
+
+    setTimeout(() => {
+      imageEl.remove();
+    }, 2000);
   }, rollDuration);
 }

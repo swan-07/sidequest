@@ -24,12 +24,12 @@ async function registerQuest() {
   })
 }
 
-async function getInterval() {
+async function getAlarmInterval() {
   const result = await chrome.storage.local.get(["interval"]);
   return result?.interval || 5;
 }
 
-async function setInterval(interval) {
+async function setAlarmInterval(interval) {
   await chrome.storage.local.set({ interval });
 }
 
@@ -55,3 +55,12 @@ async function buySkip() {
 }
 
 
+
+async function getRandomState() {
+  const result = await chrome.storage.local.get(["random"]);
+  return result?.random || true;
+}
+
+async function setRandomState(random) {
+  await chrome.storage.local.set({ random });
+}
