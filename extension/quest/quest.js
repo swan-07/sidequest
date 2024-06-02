@@ -1,34 +1,43 @@
+// https://codepen.io/jcjms/pen/JjmajpW
+
 const QUESTS = [
   {
     "name": "Touch some grass",
-    "file": "/games/touch-grass/index.html"
+    "file": "/games/touch-grass/index.html",
+    "difficulty": 5
   },
 
   {
     "name": "Get silly",
-    "file": "get-silly.html"
+    "file": "get-silly.html",
+    "difficulty": 1
   },
   
   {
     "name": "Amazing quest 1",
-    "file": "quest-1.html"
+    "file": "quest-1.html",
+    "difficulty": 3
   },
   
   {
     "name": "Amazing quest 2",
-    "file": "quest-2.html"
+    "file": "quest-2.html",
+    "difficulty": 2
   },
 
   {
     "name": "wow",
-    "file": "very wow"
+    "file": "very wow",
+    "difficulty": 1
   },
   {
     "name": "Chess",
-    "file": "/games/chess/index.html"
+    "file": "/games/chess/index.html",
+    "difficulty": 2
   }
 ];
 
+const slotSymbols = [QUESTS];
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -42,7 +51,7 @@ async function questRoll() {
   for (let i = 0; i < iterations; i++) {
     let t = (i+1)/iterations;
 
-    randomQuest = QUESTS[Math.floor(Math.random() * QUESTS.length)];
+    randomQuest = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
 
     questEl.setAttribute("pop", "a");
     questEl.textContent = randomQuest.name;
@@ -57,13 +66,6 @@ async function questRoll() {
   document.location = randomQuest.file;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  // questRoll();
-  spin()
-});
-
-
-
 function createSymbolElement(symbol) {
   const div = document.createElement('div');
   div.classList.add('symbol');
@@ -72,53 +74,70 @@ function createSymbolElement(symbol) {
 }
 
 let spun = false;
+
 function spin() {
   if (spun) {
     reset();
   }
-  const slot = document.querySelectorAll('.slot');
-  const symbols = slot.querySelector('.symbols');
-  const symbolHeight = symbols.querySelector('.symbol')?.clientHeight || 50; // Default height if symbols are empty
-  const symbolCount = QUESTS.length;
+  const slots = document.querySelectorAll('.slot');
 
-  symbols.innerHTML = '';
+  slots.forEach((slot, index) => {
+    const symbols = slot.querySelector('.symbols');
+    const symbolHeight = symbols.querySelector('.symbol').clientHeight;
+    const symbolCount = slotSymbols[index].length;
 
-  symbols.appendChild(createSymbolElement('???'));
+    symbols.innerHTML = '';
 
-  for (let i = 0; i < 3; i++) {
-    QUESTS.forEach(quest => {
-      symbols.appendChild(createSymbolElement(quest.name));
-    });
-  }
+    symbols.appendChild(createSymbolElement('???'));
 
-  const totalDistance = symbolCount * symbolHeight * 3;
-  const randomOffset = -Math.floor(Math.random() * symbolCount) * symbolHeight;
-  symbols.style.transition = 'top 0.5s ease-in-out';
-  symbols.style.top = `${randomOffset}px`;
+    for (let i = 0; i < 3; i++) {
+      slotSymbols[index].forEach(quest => {
+        symbols.appendChild(createSymbolElement(quest.name));
+      });
+    }
 
-  symbols.addEventListener('transitionend', () => {
-    logDisplayedSymbols();
-  }, { once: true });
+    const randomOffset = -Math.floor(Math.random() * symbolCount) * symbolHeight;
+    symbols.style.transition = 'top 0.5s ease-in-out';
+    symbols.style.top = `${randomOffset}px`;
+
+    symbols.addEventListener('transitionend', () => {
+      completedSlots++;
+      if (completedSlots === slots.length) {
+        logDisplayedSymbols();
+      }
+    }, { once: true });
+  });
 
   spun = true;
 }
 
 function reset() {
-  const slot = document.querySelectorAll('.slot');
-  const symbols = slot.querySelector('.symbols');
-  symbols.style.transition = 'none';
-  symbols.style.top = '0';
-  symbols.offsetHeight;  // Trigger reflow
-  symbols.style.transition = 'top 0.5s ease-in-out';
+  const slots = document.querySelectorAll('.slot');
+
+  slots.forEach(slot => {
+    const symbols = slot.querySelector('.symbols');
+    symbols.style.transition = 'none';
+    symbols.style.top = '0';
+    symbols.offsetHeight;  // Trigger reflow
+    symbols.style.transition = 'top 0.5s ease-in-out';
+  });
 }
 
 function logDisplayedSymbols() {
-  const slot = document.querySelector('.slot');
-  const symbols = slot.querySelector('.symbols');
-  const symbolIndex = Math.floor(Math.abs(parseInt(symbols.style.top, 10)) / slot.clientHeight) % QUESTS.length;
-  const displayedSymbol = QUESTS[symbolIndex].name; // Access the name part of the quest
+  const slots = document.querySelectorAll('.slot');
+  const displayedSymbols = [];
 
-  console.log("Displayed symbol:", displayedSymbol);
+  slots.forEach((slot, index) => {
+    const symbols = slot.querySelector('.symbols');
+    const symbolHeight = symbols.querySelector('.symbol').clientHeight; // Ensure height is fetched correctly
+    const symbolIndex = Math.floor(Math.abs(parseInt(symbols.style.top, 10)) / symbolHeight) % slotSymbols[index].length;
+    const displayedSymbol = slotSymbols[index][symbolIndex].name;
+    displayedSymbols.push(displayedSymbol);
+  });
+
+  console.log(displayedSymbols);
 }
 
-spin();
+document.addEventListener("DOMContentLoaded", () => {
+  spin();
+});
