@@ -32,6 +32,11 @@ const QUESTS = [
     "name": "wow",
     "file": "very wow",
     "difficulty": 1
+  },
+  {
+    "name": "small sidequest",
+    "file": "/games/text/index.html",
+    "difficulty": 1
   }
 ];
 
