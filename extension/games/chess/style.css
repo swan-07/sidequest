@@ -156,3 +156,18 @@ input:focus {
   color: gray;
   padding: 2vh;
 }
+
+dialog {
+  border-radius: 8px;
+  padding: 0;
+  border: 2px solid hsl(0 0%80%);
+  z-index: 512;
+}
+
+.dialog-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 16px;
+  font-size: 20px;
+}
