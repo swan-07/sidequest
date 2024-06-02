@@ -29,9 +29,9 @@ chrome.windows.onFocusChanged.addListener(function(windowId) {
 
   if (activeWindowId !== windowId) {
     // refocus it!
-    chrome.windows.update(activeWindowId, {
-      focused: true,
-    });
+    // chrome.windows.update(activeWindowId, {
+    //   focused: true,
+    // });
   }
 }, {
   // windowTypes: ["popup"]

@@ -1,13 +1,9 @@
-:root {
-  /* color-scheme: dark; */
-}
+/* big credit for the design: https://codepen.io/1isten/pen/wvMdNPp */
 
-html, body {
-  padding: 0px;
-  margin: 0px;
-  height: 100vh;
-  width: 100vw;
-  color: black;
+body {
+  background: #212121;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
@@ -15,12 +11,19 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 }
 
+.slotcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
 .slot {
-  width: 200px;
-  height: 50px;
+  width: 100px;
+  height: 150px;
   border: 1px solid black;
   border-radius: 7.5px;
   display: inline-block;
@@ -30,17 +33,17 @@ html, body {
   box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.4) inset;
 }
 
-.symbols {
+.slot .symbols {
   position: absolute;
   top: 0;
   left: 0;
   transition: top 5s;
 }
 
-.symbol {
+.slot .symbol {
   width: 100px;
   height: 150px;
-  font-size: 60px;
+  font-size: 10px;
   line-height: 100px;
   display: block;
   text-align: center;
