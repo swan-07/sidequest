@@ -114,6 +114,9 @@ function checkTransform(symbols, index, callback) {
   if (!isNaN(transform) && (transform <= -1 * index * symbols.children[0].clientHeight + 5 && transform >= -1 * index * symbols.children[0].clientHeight - 5)){
     symbols.removeEventListener('animationend', callback);
     symbols.style.animationPlayState = 'paused';
+    setTimeout(() => {
+      document.location = QUESTS[index].file;
+    }, 1000);
   }
 
   else {
@@ -134,17 +137,8 @@ async function spin2() {
 
   symbols.addEventListener('animationend', async function x() {
     if (duration > 2 && notSelected) {
-
-      /*symbols.style.animation = 'none';
-      symbols.offsetHeight;  // Trigger reflow
-      symbols.style.transition = '2s ease-in-out';*/
       let index = Math.floor(Math.random() * QUESTS.length);
       notSelected = false;
-      /*symbols.style.transform = `translateY(${-1 * index * symbols.children[0].clientHeight}px)`;
-      console.log(symbols.style.transform);*/
-      
-      // await sleep(2000);
-      // document.location = QUESTS[index].fil;
       checkTransform(this, index, x)
     }
     duration += change;
