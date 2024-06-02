@@ -1,6 +1,6 @@
 const QUESTS = [
    {
-     "name": "Touch some grass",
+     "name": "touch grass",
      "file": "/games/touch-grass/index.html",
      "difficulty": 5
    },
@@ -21,17 +21,6 @@ const QUESTS = [
      "difficulty": 3
    },
   
-   {
-     "name": "Amazing quest 2",
-     "file": "quest-2.html",
-     "difficulty": 2
-   },
-
-   {
-     "name": "wow",
-     "file": "very wow",
-     "difficulty": 1
-   },
   {
     "name": "small sidequest",
     "file": "/games/text/index.html",
