@@ -22,14 +22,18 @@
   },
  
  {
-   "name": "Small Sidequest",
+   "name": "Small Sidequests",
    "id": "text",
    "difficulty": 1
  },
- 
  {
   "name": "Be Kind",
   "id": "kindness",
   "difficulty": 2
- }
+ },
+ {
+  "name": "Tic-Tac-Toe",
+  "id": "tic-tac-toe",
+  "difficulty": 3
+}
 ]
