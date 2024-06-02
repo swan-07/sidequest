@@ -35,22 +35,62 @@ class Game {
     const blackCheckmate = Game.isCheckmate('black');
     if (whiteCheckmate || blackCheckmate) {
       Dom.message('Checkmate ' + (whiteCheckmate ? 'black' : 'white') + ' wins.');
-    }
-    if (!whiteToPlay) {
-      let choices = board.squaresByColour('black')
-      let choice = choices[Math.floor(Math.random() * choices.length)]
-      let moves = choice.piece.availableSquares()
-      while (moves.length == 0) {
-        choice = choices[Math.floor(Math.random() * choices.length)]
-        moves = choice.piece.availableSquares()
+      chrome.runtime.sendMessage({ type: "done" });
+      const dialog = document.querySelector("dialog");
+      const p = dialog.querySelector("p")
+
+      if (blackCheckmate) {
+        p.textContent = "You won the game!";
+        confetti({
+          particleCount: 100,
+          spread: 180,
+          origin: { y: 0.8 },
+        });
+      } else {
+        p.textContent = "You lost the game :(\nBetter luck next time!";
       }
+  
+      dialog.showModal();
+
+      const button = dialog.querySelector("button");
+      button.addEventListener("click", function() {
+        window.close();
+      })
+    }
+    else if (Game.captures && Game.captures > 2) {
+      chrome.runtime.sendMessage({ type: "done" });
+      const dialog = document.querySelector("dialog");
+      const p = dialog.querySelector("p")
+
+      p.textContent = "Good job! You captured some pieces!";
+      confetti({
+        particleCount: 100,
+        spread: 180,
+        origin: { y: 0.8 },
+      });
+
+      const close = dialog.querySelector("#close");
+      close.addEventListener("click", function() {
+        window.close();
+      })
+      const cancel = dialog.querySelector("#continue");
+      cancel.addEventListener("click", function() {
+        dialog.close();
+      })
+    }
+
+    while (!whiteToPlay) {
+      var choices = board.squaresByColour('black')
+      var choice = choices[Math.floor(Math.random() * choices.length)]
+      var move = choice.piece.availableSquares()[Math.floor(Math.random() * choice.piece.availableSquares().length)]
 
       choice.domElement.click()
-      moves[Math.floor(Math.random() * moves.length)].domElement.click()
+      move.domElement.click()
     }
   }
 
   static isInCheck(colour) {
+    console.log('checking');
     const king = board
       .piecesByColour(colour)
       .find(piece => piece instanceof King);
@@ -93,6 +133,7 @@ class Game {
   }
 
   static simulateMove(piece, square, outcomeFunction) {
+    console.log(piece, square, outcomeFunction);
     const currentSquare = piece.square;
     const pieceAtMoveSquare = square.piece;
     piece.moveTo(square);

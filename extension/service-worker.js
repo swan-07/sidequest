@@ -8,6 +8,8 @@ let gameInProgress = false;
 let location = null;
 let inProgressTimeout = null;
 
+
+
 chrome.runtime.onMessage.addListener((message, sender) => {
   console.log(message, sender);
 
@@ -113,6 +115,7 @@ chrome.windows.onRemoved.addListener(function(windowId) {
     }
   }
 })
+
 /*
 await chrome.alarms.create("quest-alarm", {
   delayInMinutes: 0,

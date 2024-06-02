@@ -80,7 +80,6 @@ async function questRoll() {
   const left = Math.round((displayInfo.bounds.width / 2) - (windowWidth / 2));
 
   console.log("We are", ourId);
-   alert("Our ID is " + ourId);
   
   chrome.windows.update(ourId, {
     width: windowWidth,
@@ -93,71 +92,24 @@ async function questRoll() {
 }
 
 function showStars(randomQuest){
-  if(randomQuest.difficulty == 1){
-    document.getElementById("star1").src = "star.png";
-    document.getElementById("star2").src = "nostar.png";
-    document.getElementById("star3").src = "nostar.png";
-    document.getElementById("star4").src = "nostar.png";
-    document.getElementById("star5").src = "nostar.png";
-  }
-  if(randomQuest.difficulty == 2){
-    document.getElementById("star1").src = "star.png";
-    document.getElementById("star2").src = "star.png";
-    document.getElementById("star3").src = "nostar.png";
-    document.getElementById("star4").src = "nostar.png";
-    document.getElementById("star5").src = "nostar.png";
-  }
-  if(randomQuest.difficulty == 3){
-    document.getElementById("star1").src = "star.png";
-    document.getElementById("star2").src = "star.png";
-    document.getElementById("star3").src = "star.png";
-    document.getElementById("star4").src = "nostar.png";
-    document.getElementById("star5").src = "nostar.png";
-  }
-  if(randomQuest.difficulty == 4){
-    document.getElementById("star1").src = "star.png";
-    document.getElementById("star2").src = "star.png";
-    document.getElementById("star3").src = "star.png";
-    document.getElementById("star4").src = "star.png";
-    document.getElementById("star5").src = "nostar.png";
-  }
-  if(randomQuest.difficulty == 5){
-    document.getElementById("star1").src = "star.png";
-    document.getElementById("star2").src = "star.png";
-    document.getElementById("star3").src = "star.png";
-    document.getElementById("star4").src = "star.png";
-    document.getElementById("star5").src = "star.png";
+  const starElements = [...new Array(5)].map((_, index) => document.querySelector(`#star${index+1}`))
+  
+  for (let i = 0; i < starElements.length; i++) {
+    let el = starElements[i]
+    if (randomQuest.difficulty > i) {
+      el.src = "star.png"
+    } else {
+      el.src = "nostar.png"
+    }
   }
 }
 
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const pointsDisplay = document.getElementById('pointsDisplay');
+  registerQuest();
   questRoll();
-  getPoints();
-  updatePoints()
 });
 
-function getPoints() {
-  chrome.storage.local.get(['points'], (result) => {
-      const points = result.points || 0;
-      pointsDisplay.textContent = 'Points: ' + points;
-
-  });
-}
-
-function savePoints(points) {
-  chrome.storage.local.set({ 'points' : points }, () => {
-  });
-}
-
-function updatePoints() {
-chrome.storage.local.get(['points'], (result) => {
-    let points = result.points || 0;
-    points += 1; 
-    savePoints(points); 
-});
-}
 
 

@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8" /> 
+  <script src="../points.js"></script>
+  <script src="script.js"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500&family=Titan+One&display=swap">
 </head>
 <body>
-  <h1 >SideQuest</h1>
-
-  <div id="frequencyDisplay">
-    Frequency: 5 min
+  <h1>Sidequest</h1>
+  <h2>Settings</h2>
+  <div class="settings">
+    <div class="settings-row">
+      <span class="settings-row__title">Frequency (minutes)</span>
+      <input class="settings-row__input" type="number" value="5" min="1" max="120" />
+    </div>
   </div>
-
-  <form id="form">
-    <label for="number">frequency (min): </label>
-    <input id="number" type="number" min="0" name="number">
-    <button>Submit</button>
-  </form>
-  
+  <h2>Statistics</h2>
+  <ul>
+    <li class="stat-points">[...]</li>
+    <li class="stat-quests">[...]</li>
+  </ul>
 </body>

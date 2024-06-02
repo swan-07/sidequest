@@ -1,6 +1,6 @@
 function getInput() {
     let input = document.getElementById("userInput").value;
-    alert(input);
+    document.getElementById("text").innerHTML = input;
 }
 
 document.querySelector(".button").addEventListener("click", () => getInput());
