@@ -37,7 +37,6 @@ const QUESTS = [
   }
 ];
 
-const slotSymbols = [QUESTS];
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -79,64 +78,41 @@ function spin() {
   if (spun) {
     reset();
   }
-  const slots = document.querySelectorAll('.slot');
+  const slot = document.querySelectorAll('.slot');
+  const symbols = slot.querySelector('.symbols');
+  const symbolHeight = symbols.querySelector('.symbol').clientHeight;
+  const symbolCount = QUESTS.length;
+  symbols.innerHTML = '';
 
-  slots.forEach((slot, index) => {
-    const symbols = slot.querySelector('.symbols');
-    const symbolHeight = symbols.querySelector('.symbol').clientHeight;
-    const symbolCount = slotSymbols[index].length;
+  symbols.appendChild(createSymbolElement('???'));
 
-    symbols.innerHTML = '';
+  QUESTS.forEach(quest => {
+    symbols.appendChild(createSymbolElement(quest.name));
+  });
 
-    symbols.appendChild(createSymbolElement('???'));
-
-    for (let i = 0; i < 3; i++) {
-      slotSymbols[index].forEach(quest => {
-        symbols.appendChild(createSymbolElement(quest.name));
-      });
-    }
-
-    const randomOffset = -Math.floor(Math.random() * symbolCount) * symbolHeight;
-    symbols.style.transition = 'top 0.5s ease-in-out';
-    symbols.style.top = `${randomOffset}px`;
+  const randomOffset = -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
+    
+  symbols.style.transition = 'top 0.5s ease-in-out';
+  symbols.style.top = `${randomOffset}px`;
 
     symbols.addEventListener('transitionend', () => {
-      completedSlots++;
-      if (completedSlots === slots.length) {
-        logDisplayedSymbols();
-      }
+      logDisplayedSymbols();
     }, { once: true });
-  });
+
 
   spun = true;
 }
 
 function reset() {
-  const slots = document.querySelectorAll('.slot');
+  const slot = document.querySelectorAll('.slot');
 
-  slots.forEach(slot => {
     const symbols = slot.querySelector('.symbols');
     symbols.style.transition = 'none';
     symbols.style.top = '0';
     symbols.offsetHeight;  // Trigger reflow
     symbols.style.transition = 'top 0.5s ease-in-out';
-  });
 }
 
-function logDisplayedSymbols() {
-  const slots = document.querySelectorAll('.slot');
-  const displayedSymbols = [];
-
-  slots.forEach((slot, index) => {
-    const symbols = slot.querySelector('.symbols');
-    const symbolHeight = symbols.querySelector('.symbol').clientHeight; // Ensure height is fetched correctly
-    const symbolIndex = Math.floor(Math.abs(parseInt(symbols.style.top, 10)) / symbolHeight) % slotSymbols[index].length;
-    const displayedSymbol = slotSymbols[index][symbolIndex].name;
-    displayedSymbols.push(displayedSymbol);
-  });
-
-  console.log(displayedSymbols);
-}
 
 document.addEventListener("DOMContentLoaded", () => {
   spin();
