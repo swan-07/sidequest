@@ -113,6 +113,7 @@ chrome.windows.onFocusChanged.addListener(function(windowId) {
 })
 
 chrome.windows.onRemoved.addListener(function(windowId) {
+  // console.log("removed window", windowId, "active window is", activeWindowId);
   if (windowId == activeWindowId) {
     activeWindowId = null;
 
