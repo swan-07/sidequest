@@ -12,6 +12,7 @@ class Piece {
     this.symbol = symbol;
     this.square.render();
     this.hasMoved = false;
+    this.value = {"R": 5, "N": 3, "B": 3, "Q": 9, "K": 1000, "p": 1}[name];
   }
 
   availableSquares() {

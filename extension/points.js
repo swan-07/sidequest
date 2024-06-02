@@ -24,12 +24,12 @@ async function registerQuest() {
   })
 }
 
-async function getInterval() {
+async function getAlarmInterval() {
   const result = await chrome.storage.local.get(["interval"]);
   return result?.interval || 5;
 }
 
-async function setInterval(interval) {
+async function setAlarmInterval(interval) {
   await chrome.storage.local.set({ interval });
 }
 
