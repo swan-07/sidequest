@@ -6,7 +6,6 @@ function hasInput() {
     document.querySelector("input").style.display = "none";
     (async () => {
         await chrome.runtime.sendMessage({ type: "done" });
-        window.close();
     })();
 }
 
