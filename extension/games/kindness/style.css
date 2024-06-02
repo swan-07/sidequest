@@ -11,8 +11,8 @@
     font-size: 48px;
 }
 #moveable {
-    width: 500px;
-    height: 500px;
+    width: 350px;
+    height: 350px;
     text-align: center;
     position: relative;
     display: flex;
