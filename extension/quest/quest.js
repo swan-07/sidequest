@@ -54,4 +54,64 @@ async function questRoll() {
 
 document.addEventListener("DOMContentLoaded", () => {
   questRoll();
+  spin()
 });
+
+
+
+function createSymbolElement(symbol) {
+  const div = document.createElement('div');
+  div.classList.add('symbol');
+  div.textContent = symbol;
+  return div;
+}
+
+let spun = false;
+function spin() {
+  if (spun) {
+    reset();
+  }
+  const slot = document.querySelectorAll('.slot');
+  const symbols = slot.querySelector('.symbols');
+  const symbolHeight = symbols.querySelector('.symbol')?.clientHeight || 50; // Default height if symbols are empty
+  const symbolCount = QUESTS.length;
+  symbols.innerHTML = '';
+
+  symbols.appendChild(createSymbolElement('???'));
+
+  for (let i = 0; i < 3; i++) {
+    QUESTS.forEach(quest => {
+      symbols.appendChild(createSymbolElement(quest.name));
+    });
+  }
+
+  const randomOffset = -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
+  symbols.style.transition = 'top 0.5s ease-in-out';
+  symbols.style.top = `${randomOffset}px`;
+
+  symbols.addEventListener('transitionend', () => {
+    logDisplayedSymbols();
+  }, { once: true });
+
+  spun = true;
+}
+
+function reset() {
+  const slot = document.querySelectorAll('.slot');
+  const symbols = slot.querySelector('.symbols');
+  symbols.style.transition = 'none';
+  symbols.style.top = '0';
+  symbols.offsetHeight;  // Trigger reflow
+  symbols.style.transition = 'top 0.5s ease-in-out';
+}
+
+function logDisplayedSymbols() {
+  const slot = document.querySelector('.slot');
+  const symbols = slot.querySelector('.symbols');
+  const symbolIndex = Math.floor(Math.abs(parseInt(symbols.style.top, 10)) / slot.clientHeight) % QUESTS.length;
+  const displayedSymbol = QUESTS[symbolIndex].name; // Access the name part of the quest
+
+  console.log(displayedSymbol);
+}
+
+spin();

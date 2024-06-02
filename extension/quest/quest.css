@@ -7,36 +7,44 @@ html, body {
   margin: 0px;
   height: 100vh;
   width: 100vw;
+  color: black;
 }
 
-body {
-  background: maroon;
-
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
 }
 
-h1 {
-  font-size: 22px;
+
+.slot {
+  width: 200px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 7.5px;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  background: #fafafa;
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.4) inset;
 }
 
-@keyframes pop {
-  from { transform: scale(130%); }
-  to { transform: scale(100%); }
+.symbols {
+  position: absolute;
+  width: 100%;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.symbol {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
 }
 
-.quest[pop=a] {
-  animation: pop 80ms ease-out;
-}
-
-.quest[shine] {
-  animation: spin 600ms ease-in-out;
+button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
 }
