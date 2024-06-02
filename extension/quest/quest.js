@@ -89,9 +89,13 @@ async function questRoll() {
     top: top,
     left: left
   })
+  
+  chrome.runtime.sendMessage({
+    type: "location-indication",
+    file: randomQuest.file
+  })
 
   document.location = randomQuest.file;
-  console.log("hi");
 }
 
 function showStars(randomQuest){

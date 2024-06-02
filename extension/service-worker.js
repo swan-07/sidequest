@@ -1,6 +1,12 @@
 const WINDOW_HEIGHT = 400;
 const WINDOW_WIDTH = 400;
 let activeWindowId = undefined;
+let gameInProgress = false;
+let lastLocation = null;
+
+chrome.runtime.onMessage.addListener((message) => {
+  console.log(message);
+})
 
 async function showQuest() {
   const displayInfo = (await chrome.system.display.getInfo())[0];
@@ -21,6 +27,7 @@ async function showQuest() {
   })
   const windowId = window.id;
   activeWindowId = windowId;
+  gameInProgress = true;
 
   setTimeout(async () => {
     const windowNow = await chrome.windows.get(windowId, {
@@ -31,7 +38,7 @@ async function showQuest() {
       type: "id",
       id: windowId
     })
-  }, 1000);
+  }, 500);
 }
 
 chrome.windows.onFocusChanged.addListener(function(windowId) {
@@ -49,6 +56,13 @@ chrome.windows.onFocusChanged.addListener(function(windowId) {
 })
 
 
+
+chrome.windows.onRemoved.addListener(function(windowId) {
+  if (windowId == activeWindowId && gameInProgress) {
+    console.log("closed!!");
+    // the window 
+  }
+})
 /*
 await chrome.alarms.create("quest-alarm", {
   delayInMinutes: 0,
