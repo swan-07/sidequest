@@ -1,42 +1,29 @@
-// https://codepen.io/jcjms/pen/JjmajpW
-
 const QUESTS = [
   {
     "name": "Touch some grass",
-    "file": "/games/touch-grass/index.html",
-    "difficulty": 5
+    "file": "/games/touch-grass/index.html"
   },
 
   {
-    "name": "Be kind to yourself",
-    "file": "/games/kindness/index.html",
-    "difficulty": 3
+    "name": "Get silly",
+    "file": "get-silly.html"
   },
   
   {
     "name": "Amazing quest 1",
-    "file": "quest-1.html",
-    "difficulty": 3
+    "file": "quest-1.html"
   },
   
   {
     "name": "Amazing quest 2",
-    "file": "quest-2.html",
-    "difficulty": 2
+    "file": "quest-2.html"
   },
 
   {
     "name": "wow",
-    "file": "very wow",
-    "difficulty": 1
-  },
-  {
-    "name": "Chess",
-    "file": "/games/chess/index.html",
-    "difficulty": 2
+    "file": "very wow"
   }
 ];
-
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -50,7 +37,7 @@ async function questRoll() {
   for (let i = 0; i < iterations; i++) {
     let t = (i+1)/iterations;
 
-    randomQuest = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+    randomQuest = QUESTS[Math.floor(Math.random() * QUESTS.length)];
 
     questEl.setAttribute("pop", "a");
     questEl.textContent = randomQuest.name;
@@ -65,60 +52,6 @@ async function questRoll() {
   document.location = randomQuest.file;
 }
 
-function createSymbolElement(symbol) {
-  const div = document.createElement('div');
-  div.classList.add('symbol');
-  div.textContent = symbol;
-  return div;
-}
-
-let spun = false;
-
-function spin() {
-  if (spun) {
-    reset();
-  }
-  
-  const slot = document.querySelector('.slot');
-  const symbols = slot.querySelector('.symbols');
-  symbols.appendChild(createSymbolElement('???'));
-
-  const symbolHeight = symbols.querySelector('.symbol').clientHeight;
-  const symbolCount = QUESTS.length;
-  symbols.innerHTML = '';
-
-
-  QUESTS.forEach(quest => {
-    symbols.appendChild(createSymbolElement(quest.name));
-  });
-  
-  const randomIndex = Math.floor(Math.random() * (symbolCount - 1) + 1);
-  const randomOffset = -randomIndex * symbolHeight;
-  
-  symbols.style.top = `${randomOffset}px`;
-  const symbolIndex = Math.floor(Math.abs(randomOffset) / slot.clientHight) % QUESTS.length;
-  const displayedSymbol = QUESTS[symbolIndex].name;
-
-  alert("Displayed symbol:", displayedSymbol);
-
-    
-  symbols.style.transition = 'top 0.5s ease-in-out';
-  console.log("hi");
-
-  spun = true;
-}
-
-function reset() {
-    const slot = document.querySelector('.slot');
-    const symbols = slot.querySelector('.symbols');
-    symbols.style.transition = 'none';
-    symbols.style.top = '0px';
-    symbols.offsetHeight;  // Trigger reflow
-    symbols.style.transition = 'top 0.5s ease-in-out';
-}
-
-
 document.addEventListener("DOMContentLoaded", () => {
-  spin();
-  console.log("hi");
+  questRoll();
 });
