@@ -22,6 +22,8 @@
 }
 #text {
     word-wrap: break-word;
+    width: 50%;
+    margin: 25%;
 }
 svg {
     height: 100%;
