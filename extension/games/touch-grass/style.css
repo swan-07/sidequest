@@ -53,7 +53,7 @@ body {
 }
 .container {
   height: 50px;
-  padding-bottom: 30px;
+  padding-bottom: 60px;
   position: relative;
   display: flex;
   align-items: center;
