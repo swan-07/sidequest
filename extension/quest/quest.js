@@ -29,6 +29,7 @@ const QUESTS = [
   }
 ];
 
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -57,7 +58,7 @@ async function questRoll() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  questRoll();
+  // questRoll();
   spin()
 });
 
@@ -79,6 +80,7 @@ function spin() {
   const symbols = slot.querySelector('.symbols');
   const symbolHeight = symbols.querySelector('.symbol')?.clientHeight || 50; // Default height if symbols are empty
   const symbolCount = QUESTS.length;
+
   symbols.innerHTML = '';
 
   symbols.appendChild(createSymbolElement('???'));
@@ -89,7 +91,8 @@ function spin() {
     });
   }
 
-  const randomOffset = -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
+  const totalDistance = symbolCount * symbolHeight * 3;
+  const randomOffset = -Math.floor(Math.random() * symbolCount) * symbolHeight;
   symbols.style.transition = 'top 0.5s ease-in-out';
   symbols.style.top = `${randomOffset}px`;
 
@@ -115,7 +118,7 @@ function logDisplayedSymbols() {
   const symbolIndex = Math.floor(Math.abs(parseInt(symbols.style.top, 10)) / slot.clientHeight) % QUESTS.length;
   const displayedSymbol = QUESTS[symbolIndex].name; // Access the name part of the quest
 
-  console.log(displayedSymbol);
+  console.log("Displayed symbol:", displayedSymbol);
 }
 
 spin();
