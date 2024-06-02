@@ -22,6 +22,10 @@ const QUESTS = [
   {
     "name": "wow",
     "file": "very wow"
+  },
+  {
+    "name": "Chess",
+    "file": "/games/chess/index.html"
   }
 ];
 
