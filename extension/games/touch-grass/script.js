@@ -5,6 +5,7 @@ function setTime() {
     console.log(loadTime);
 }
 function click() {
+    alert("clicked");
     let clickTime = Date.now();
     let diff = clickTime - loadTime;
     console.log("test");
@@ -15,3 +16,5 @@ function click() {
         alert("Get back outside! You're not done!");
     }
 }
+
+document.querySelector(".finished").addEventListener("click", () => click());
