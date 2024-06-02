@@ -1,4 +1,3 @@
-/* global King */
 /* global Dom, sq, board, whiteToPlay, selectedSquare */
 /* eslint-disable no-unused-vars, no-global-assign */
 class Game {
@@ -29,8 +28,9 @@ class Game {
     }
   }
 
-  static finishMove() {
+ static async finishMove() {
     Dom.togglePlayer();
+    console.log(whiteToPlay);
     const whiteCheckmate = Game.isCheckmate('white');
     const blackCheckmate = Game.isCheckmate('black');
     if (whiteCheckmate || blackCheckmate) {
@@ -84,8 +84,10 @@ class Game {
       var choice = choices[Math.floor(Math.random() * choices.length)]
       var move = choice.piece.availableSquares()[Math.floor(Math.random() * choice.piece.availableSquares().length)]
 
-      choice.domElement.click()
-      move.domElement.click()
+      if (choice && move) {
+        choice.domElement.click()
+        move.domElement.click()
+      }
     }
   }
 
