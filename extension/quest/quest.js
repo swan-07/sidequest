@@ -138,31 +138,10 @@ function showStars(randomQuest){
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const pointsDisplay = document.getElementById('pointsDisplay');
+  registerQuest();
   questRoll();
-  getPoints();
-  updatePoints()
 });
 
-function getPoints() {
-  chrome.storage.local.get(['points'], (result) => {
-      const points = result.points || 0;
-      pointsDisplay.textContent = 'Points: ' + points;
 
-  });
-}
-
-function savePoints(points) {
-  chrome.storage.local.set({ points }, () => {
-  });
-}
-
-function updatePoints() {
-chrome.storage.local.get(['points'], (result) => {
-    let points = result.points || 0;
-    points += 1; 
-    savePoints(points); 
-});
-}
 
 
