@@ -2,6 +2,32 @@
   color-scheme: dark;
 }
 
+html, body {
+  padding: 0px;
+  margin: 0px;
+  height: 100vh;
+  width: 100vw;
+}
+
 body {
   background: maroon;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+h1 {
+  font-size: 22px;
+}
+
+@keyframes pop {
+  from { transform: scale(130%); }
+  to { transform: scale(100%); }
+}
+
+.quest[pop=a] {
+  animation: pop 80ms ease-out;
 }
