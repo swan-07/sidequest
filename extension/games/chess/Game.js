@@ -30,7 +30,6 @@ class Game {
 
  static async finishMove() {
     Dom.togglePlayer();
-    console.log(whiteToPlay);
     const whiteCheckmate = Game.isCheckmate('white');
     const blackCheckmate = Game.isCheckmate('black');
     if (whiteCheckmate || blackCheckmate) {
@@ -58,6 +57,8 @@ class Game {
       })
     }
     else if (Game.captures && Game.captures > 2) {
+      Game.captures = 0;
+
       chrome.runtime.sendMessage({ type: "done" });
       const dialog = document.querySelector("dialog");
       const p = dialog.querySelector("p")
@@ -77,10 +78,38 @@ class Game {
       cancel.addEventListener("click", function() {
         dialog.close();
       })
+      cancel.style.visibility = "visible";
+
+      dialog.showModal();
     }
 
-    while (!whiteToPlay) {
+    if (!whiteToPlay) {
+      var values = {"pawn": 1, "knight": 3, "bishop": 3, "rook": 5, "queen": 9, "king": 1000}
+      var max = -1000;
+      var bestMove = null;
+
       var choices = board.squaresByColour('black')
+      for (var i = 0; i < choices.length; i++) {
+        var choice = choices[i]
+        var piece = choice.piece
+        var moves = piece.availableSquares()
+        for (var j = 0; j < moves.length; j++) {
+          console.log('hi')
+          var move = moves[j]
+          var value = this.simulateMove(piece, move, () => this.score())
+          console.log(value);
+          if (value >= max) {
+            console.log("hioahsd")
+            max = value
+            bestMove = [choice, move]
+          }
+        }
+      }
+
+      bestMove[0].domElement.click()
+      bestMove[1].domElement.click()
+    }
+      /*var choices = board.squaresByColour('black')
       var choice = choices[Math.floor(Math.random() * choices.length)]
       var move = choice.piece.availableSquares()[Math.floor(Math.random() * choice.piece.availableSquares().length)]
 
@@ -88,11 +117,25 @@ class Game {
         choice.domElement.click()
         move.domElement.click()
       }
+    }*/
+  }
+
+  static score() {
+    let white = 0;
+    let black = 0;
+    for (var i = 0; i < board.piecesByColour('white').length; i++) {
+      var piece = board.piecesByColour('white')[i];
+      white += piece.value;
     }
+    for (var i = 0; i < board.piecesByColour('black').length; i++) {
+      var piece = board.piecesByColour('black')[i]
+      black += piece.value;
+    }
+    
+    return black - white;
   }
 
   static isInCheck(colour) {
-    console.log('checking');
     const king = board
       .piecesByColour(colour)
       .find(piece => piece instanceof King);
@@ -135,7 +178,6 @@ class Game {
   }
 
   static simulateMove(piece, square, outcomeFunction) {
-    console.log(piece, square, outcomeFunction);
     const currentSquare = piece.square;
     const pieceAtMoveSquare = square.piece;
     piece.moveTo(square);

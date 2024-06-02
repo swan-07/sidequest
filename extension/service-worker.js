@@ -45,7 +45,7 @@ chrome.runtime.onMessage.addListener( async (message, sender) => {
 
     const quest = quests.find(quest => quest.id === secondToLastPart);
     var difficulty = quest ? quest.difficulty : null; // Return null or some default value if not found
-    awardPoints(difficulty);
+    if(difficulty) awardPoints(difficulty);
     
   }
 })
