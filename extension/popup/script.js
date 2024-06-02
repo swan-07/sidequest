@@ -5,16 +5,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const rollButton = document.getElementById("roll-button");
   const gachaResultEl = document.getElementById("gacha-result");
   const collectionEl = document.getElementById("collection");
-  const images = ["img1.jpg", 
-  "img2.jpg", 
-  "img3.jpg",
-"img4.jpg",
-"img5.jpg",
-"img6.jpg",
-"img7.jpg",
-"img8.jpg",
-"img9.jpg"
-];
+  const images = [
+    "gacha/img1.jpg", 
+    "gacha/img3.jpg",
+    "gacha/img2.jpg", 
+    "gacha/img3.jpg",
+    "gacha/img4.jpg",
+    "gacha/img5.jpg",
+    "gacha/img6.jpg",
+    "gacha/img7.jpg",
+    "gacha/img8.jpg",
+    "gacha/img9.jpg"
+  ];
 
   getPoints().then(points => {
     updatePointsDisplay(points);
