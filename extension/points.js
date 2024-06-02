@@ -55,3 +55,12 @@ async function buySkip() {
 }
 
 
+
+async function getRandomState() {
+  const result = await chrome.storage.local.get(["random"]);
+  return result?.random || true;
+}
+
+async function setRandomState(random) {
+  await chrome.storage.local.set({ random });
+}

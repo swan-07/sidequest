@@ -8,6 +8,11 @@
 <body>
   <h1>you have a quest!</h1>
   <span class="quest">[Quest here]</span>
+  <div id="quest-dropdown-container" style="display: none;">
+    <label for="quest-dropdown">Choose a quest:</label>
+    <select id="quest-dropdown"></select>
+    <button id="select-quest-button">Select</button>
+  </div>
   <br></br>
 
   <div id="group">
@@ -28,11 +33,11 @@
     </div>
   </div>
   
+
   <div id="confirmation" style="display: none;">
     <p>Do you want to skip this? You have <span id="skips-left"></span> skips left.</p>
     <button id="yes-button">Yes</button>
     <button id="no-button">No</button>
   </div>
-
   
 </body>

@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Sidequest",
+  "name": "SideQuest",
   "description": "Gives you required sidequests every few minutes to increase productivity and break you out of your scrolling habit.",
   "version": "0.0.1",
   "icons": {

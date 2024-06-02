@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("buy-skip-button").addEventListener("click", buySkip);
+    document.getElementById("buy-skip-button").addEventListener("click", buySkip);
 
   const statPointsEl = document.querySelector(".stat-points");
   const statQuestsEl = document.querySelector(".stat-quests");
@@ -7,18 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const rollButton = document.getElementById("roll-button");
   const gachaResultEl = document.getElementById("gacha-result");
   const collectionEl = document.getElementById("collection");
-  const images = [
-    "gacha/img1.jpg", 
-    "gacha/img3.jpg",
-    "gacha/img2.jpg", 
-    "gacha/img3.jpg",
-    "gacha/img4.jpg",
-    "gacha/img5.jpg",
-    "gacha/img6.jpg",
-    "gacha/img7.jpg",
-    "gacha/img8.jpg",
-    "gacha/img9.jpg"
-  ];
+  const images = ["img1.jpg", 
+  "img2.jpg", 
+  "img3.jpg",
+"img4.jpg",
+"img5.jpg",
+"img6.jpg",
+"img7.jpg",
+"img8.jpg",
+"img9.jpg"
+];
 
   getPoints().then(points => {
     updatePointsDisplay(points);
@@ -49,6 +47,32 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+async function getPoints() {
+  const result = await chrome.storage.local.get(["points"]);
+  return result?.points || 0;
+}
+
+async function setPoints(points) {
+  await chrome.storage.local.set({ points });
+}
+
+async function awardPoints(awardedPoints = 1) {
+  await setPoints((await getPoints()) + awardedPoints);
+}
+
+async function getQuestCount() {
+  const result = await chrome.storage.local.get(["questCount"]);
+  return result?.questCount || 0;
+}
+
+async function registerQuest() {
+  const result = await chrome.storage.local.get(["questCount"]);
+
+  await chrome.storage.local.set({
+    questCount: (result?.questCount || 0) + 1
+  });
+}
+
 async function loadCollection() {
   const result = await chrome.storage.local.get(["collection"]);
   return result?.collection || [];
@@ -63,6 +87,7 @@ async function addToCollection(imageData) {
   }
   return collection;
 }
+
 
 function updatePointsDisplay(points) {
   const statPointsEl = document.querySelector(".stat-points");
