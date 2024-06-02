@@ -15,7 +15,8 @@
   },
   "permissions": [
     "tabs",
-    "alarms"
+    "alarms",
+    "system.display"
   ],
   "host_permissions": [
       "*://*/*"
