@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 50px;
+    font-size: 45px;
   }
 
   button {
@@ -28,7 +28,7 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 10px;
     transition-duration: 0.4s;
     cursor: pointer;
   }
