@@ -25,6 +25,11 @@ const QUESTS = [
   }
 ];
 
+
+const usWindow = chrome.windows.getCurrent({
+  windowTypes: ["popup"]
+})
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -49,6 +54,19 @@ async function questRoll() {
   
   questEl.setAttribute("shine", "");
   await sleep(2000);
+
+  const windowHeight = 340;
+  const windowWidth = 220;
+  const displayInfo = (await chrome.system.display.getInfo())[0];
+  const top = Math.round((displayInfo.bounds.height / 2) - (windowHeight / 2));
+  const left = Math.round((displayInfo.bounds.width / 2) - (windowWidth / 2));
+
+  chrome.windows.update(usWindow.id, {
+    width: windowWidth,
+    height: windowHeight,
+    top: top,
+    left: left
+  })
   document.location = randomQuest.file;
 }
 
