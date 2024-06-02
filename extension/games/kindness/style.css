@@ -12,16 +12,22 @@
 }
 #moveable {
     width: 500px;
-    height: 25%;
-    margin: 10%;
-    background-color: pink;
+    height: 500px;
     text-align: center;
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
 }
 #text {
     word-wrap: break-word;
 }
+span {
+    
+}
 svg {
-    z-index: -1;
-    max-height: 400px;
+    height: 100%;
     width: 100%;
+    position: absolute;
+    z-index: -1;
 }
