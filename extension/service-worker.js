@@ -21,6 +21,17 @@ async function showQuest() {
   })
   const windowId = window.id;
   activeWindowId = windowId;
+
+  setTimeout(async () => {
+    await chrome.runtime.sendMessage(
+      undefined,
+      {
+        type: "id",
+        id: windowId,
+      },
+      {}
+    )
+  }, 250);
 }
 
 chrome.windows.onFocusChanged.addListener(function(windowId) {

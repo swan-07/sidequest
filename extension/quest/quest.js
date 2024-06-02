@@ -3,15 +3,14 @@ const QUESTS = [
     "name": "Touch some grass",
     "file": "/games/touch-grass/index.html"
   },
-
   {
     "name": "Get silly",
     "file": "get-silly.html"
   },
   
   {
-    "name": "Amazing quest 1",
-    "file": "quest-1.html"
+    "name": "Connect Four",
+    "file": "/games/connect-4/index.html"
   },
   
   {
@@ -25,9 +24,12 @@ const QUESTS = [
   }
 ];
 
+let ourId = null;
 
-const usWindow = chrome.windows.getCurrent({
-  windowTypes: ["popup"]
+chrome.runtime.onMessage.addListener(function(message) {
+  if (message.type == "id") {
+    ourId = message.id;
+  }
 })
 
 function sleep(ms) {
@@ -55,13 +57,15 @@ async function questRoll() {
   questEl.setAttribute("shine", "");
   await sleep(2000);
 
-  const windowHeight = 340;
-  const windowWidth = 220;
+  const windowHeight = 500;
+  const windowWidth = 600;
   const displayInfo = (await chrome.system.display.getInfo())[0];
   const top = Math.round((displayInfo.bounds.height / 2) - (windowHeight / 2));
   const left = Math.round((displayInfo.bounds.width / 2) - (windowWidth / 2));
 
-  chrome.windows.update(usWindow.id, {
+  console.log("We are", ourId);
+  
+  chrome.windows.update(ourId, {
     width: windowWidth,
     height: windowHeight,
     top: top,
