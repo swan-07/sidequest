@@ -129,3 +129,47 @@ function rollGacha(images, gachaResultEl, collectionEl) {
     }, 2000);
   }, rollDuration);
 }
+
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const tasks = await loadTasksFromJson();
+  const taskChartBody = document.getElementById("task-chart-body");
+
+  tasks.forEach(task => {
+    const row = document.createElement("tr");
+
+    const nameCell = document.createElement("td");
+    const button = document.createElement("button");
+    button.textContent = task.name;
+    button.addEventListener("click", () => openTaskWindow(task.id));
+
+    nameCell.appendChild(button);
+    row.appendChild(nameCell);
+
+    const statusCell = document.createElement("td");
+    const statusImg = document.createElement("img");
+    statusCell.appendChild(statusImg);
+    row.appendChild(statusCell);
+
+    taskChartBody.appendChild(row);
+  });
+});
+
+async function loadTasksFromJson() {
+  const response = await fetch(chrome.runtime.getURL("quests.json"));
+  const tasks = await response.json();
+  return tasks;
+}
+
+
+function openTaskWindow(taskId) {
+  const targetURL = chrome.runtime.getURL(`/games/${taskId}/index.html`);
+  chrome.windows.create({
+    type: "popup",
+    focused: true,
+    height: 500,
+    width: 600,
+    url: targetURL
+  });
+}
