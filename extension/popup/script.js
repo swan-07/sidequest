@@ -112,5 +112,9 @@ function rollGacha(images, gachaResultEl, collectionEl) {
     imageEl.setAttribute("won", "");
     const updatedCollection = await addToCollection(resultImage);
     updateCollectionDisplay(updatedCollection);
+
+    setTimeout(() => {
+      imageEl.remove();
+    }, 2000);
   }, rollDuration);
 }
