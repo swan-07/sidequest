@@ -13,7 +13,9 @@
       "default_title": "Sidequest",
       "default_popup": "popup/popup.html"
   },
-  "permissions": [],
+  "permissions": [
+    "alarms"
+  ],
   "host_permissions": [
       "*://*/*"
   ],
