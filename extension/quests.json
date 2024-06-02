@@ -1,16 +1,16 @@
 [
   {
-    "name": "touch grass",
+    "name": "Touch Grass",
     "id": "touch-grass",
     "difficulty": 5
   },
   {
-    "name": "chess",
+    "name": "Chess",
     "id": "chess",
     "difficulty": 2
   },
   {
-    "name": "captcha",
+    "name": "Captcha",
     "id": "captcha",
     "difficulty": 2
   },
@@ -22,13 +22,13 @@
   },
  
  {
-   "name": "small sidequest",
+   "name": "Small Sidequest",
    "id": "text",
    "difficulty": 1
  },
  
  {
-  "name": "Be kind",
+  "name": "Be Kind",
   "id": "kindness",
   "difficulty": 2
  }
