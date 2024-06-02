@@ -23,7 +23,7 @@ async function awardPoints(awardedPoints = 1) {
 }
 // END POINTS.JS
 
-chrome.runtime.onMessage.addListener((message, sender) => {
+chrome.runtime.onMessage.addListener( async (message, sender) => {
   console.log(message, sender);
 
   if (message.type == "location-indication") {
@@ -35,6 +35,18 @@ chrome.runtime.onMessage.addListener((message, sender) => {
     }
 
     // PUT POINTS LOGIC HERE
+    const url = sender.url;
+    const parts = url.split('/');
+    const secondToLastPart = parts[parts.length - 2];
+
+    console.log(secondToLastPart);
+    const response = await fetch(chrome.runtime.getURL("quests.json"));
+    const quests = await response.json();
+
+    const quest = quests.find(quest => quest.id === secondToLastPart);
+    var difficulty = quest ? quest.difficulty : null; // Return null or some default value if not found
+    awardPoints(difficulty);
+    
   }
 })
 
