@@ -1,0 +1,33 @@
+.nunito-text {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+.titan-one-regular {
+    font-family: "Titan One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 48px;
+}
+#moveable {
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+#text {
+    word-wrap: break-word;
+}
+span {
+    
+}
+svg {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+}
