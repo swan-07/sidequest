@@ -1,13 +1,9 @@
-let loadTime;
+let loadTime = Date.now();
 
-function setTime() {
-    loadTime = Date.now();
-    console.log(loadTime);
-}
 function click() {
     let clickTime = Date.now();
     let diff = clickTime - loadTime;
-    if (diff > 300000) { //5 min in ms is 300000
+    if (diff > 5 * 60 * 1000) { //5 min in ms is 300000
         close();
     }
     else {
