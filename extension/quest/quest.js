@@ -1,7 +1,7 @@
 const QUESTS = [
   {
-    "name": "Touch grass",
-    "file": "touch-grass.html"
+    "name": "Touch some grass",
+    "file": "/games/touch-grass/index.html"
   },
 
   {
