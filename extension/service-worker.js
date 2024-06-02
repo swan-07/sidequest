@@ -8,6 +8,8 @@ async function showQuest() {
   const top = Math.round((displayInfo.bounds.height / 2) - (WINDOW_HEIGHT / 2));
   const left = Math.round((displayInfo.bounds.width / 2) - (WINDOW_WIDTH / 2));
 
+  const baseUrl = chrome.runtime.getURL("quest/quest.html");
+
   const window = await chrome.windows.create({
     type: "popup",
     focused: true,
@@ -15,12 +17,10 @@ async function showQuest() {
     width: WINDOW_WIDTH,
     top: top,
     left: left,
-    url: chrome.runtime.getURL("quest/quest.html")
+    url: baseUrl
   })
   const windowId = window.id;
   activeWindowId = windowId;
-
-  console.log(activeWindowId)
 }
 
 chrome.windows.onFocusChanged.addListener(function(windowId) {
