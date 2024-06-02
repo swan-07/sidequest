@@ -1,3 +1,6 @@
+body {
+    background-color: pink;
+}
 .nunito-text {
     font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
@@ -11,7 +14,7 @@
     font-size: 48px;
 }
 #moveable {
-    width: 350px;
+    width: 360px;
     height: 350px;
     text-align: center;
     position: relative;
@@ -26,8 +29,12 @@
     margin: 25%;
 }
 svg {
+    display: none;
     height: 100%;
     width: 100%;
     position: absolute;
     z-index: -1;
+}
+input, button {
+    display: block;
 }
