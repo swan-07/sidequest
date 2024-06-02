@@ -55,6 +55,11 @@ class Piece {
       <span class="symbol">${this.symbol}</span>
       takes ${piece.colour}
       <span class="symbol">${piece.symbol}</span>!`);
+    
+    if (this.colour == "white") {
+      Game.captures = Game.captures + 1 || 1;
+      console.log(Game.captures);
+    }
   }
 
   isThreatenedBy() {

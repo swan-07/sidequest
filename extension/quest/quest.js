@@ -1,26 +1,8 @@
 const QUESTS = [
-  {
-    "name": "Touch some grass",
-    "file": "/games/touch-grass/index.html"
-  },
-  {
-    "name": "Get silly",
-    "file": "get-silly.html"
-  },
-  
-  {
-    "name": "Connect Four",
-    "file": "/games/connect-4/index.html"
-  },
-  
-  {
-    "name": "Amazing quest 2",
-    "file": "quest-2.html"
-  },
 
   {
-    "name": "wow",
-    "file": "very wow"
+    "name": "chess",
+    "file": "/games/chess/index.html"
   }
 ];
 
