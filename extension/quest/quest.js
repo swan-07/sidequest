@@ -78,7 +78,8 @@ async function showConfirmation(randomQuest, targetURL) {
     if (skipsLeft > 0) {
       await setSkipsLeft(skipsLeft - 1);
       confirmationDiv.style.display = "none";
-      await questRoll(); // Reroll the quest
+      await chrome.runtime.sendMessage({ type: "done" });
+      window.close();
     } else {
       alert("No skips left!");
       confirmationDiv.style.display = "none";
