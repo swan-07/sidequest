@@ -18,12 +18,10 @@
     display: flex;
     align-content: center;
     justify-content: center;
+    flex-direction: column;
 }
 #text {
     word-wrap: break-word;
-}
-span {
-    
 }
 svg {
     height: 100%;
