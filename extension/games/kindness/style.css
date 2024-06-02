@@ -38,3 +38,6 @@ svg {
 input, button {
     display: block;
 }
+button {
+    margin: 5px;
+}
