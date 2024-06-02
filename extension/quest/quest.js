@@ -46,8 +46,9 @@ async function questRoll() {
     questEl.setAttribute("pop", "b");
     await sleep(1);
   }
-
+  
   questEl.setAttribute("shine", "");
+  await sleep(2000);
   document.location = randomQuest.file;
 }
 
