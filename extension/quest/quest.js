@@ -8,9 +8,9 @@ const QUESTS = [
   },
 
   {
-    "name": "Get silly",
-    "file": "get-silly.html",
-    "difficulty": 1
+    "name": "Be kind to yourself",
+    "file": "/games/kindness/index.html",
+    "difficulty": 3
   },
   
   {
