@@ -78,13 +78,15 @@ function spin() {
   if (spun) {
     reset();
   }
-  const slot = document.querySelectorAll('.slot');
+  
+  const slot = document.querySelector('.slot');
   const symbols = slot.querySelector('.symbols');
+  symbols.appendChild(createSymbolElement('???'));
+
   const symbolHeight = symbols.querySelector('.symbol').clientHeight;
   const symbolCount = QUESTS.length;
   symbols.innerHTML = '';
 
-  symbols.appendChild(createSymbolElement('???'));
 
   QUESTS.forEach(quest => {
     symbols.appendChild(createSymbolElement(quest.name));
@@ -95,21 +97,15 @@ function spin() {
   symbols.style.transition = 'top 0.5s ease-in-out';
   symbols.style.top = `${randomOffset}px`;
 
-    symbols.addEventListener('transitionend', () => {
-      logDisplayedSymbols();
-    }, { once: true });
-
-
   spun = true;
 }
 
 function reset() {
-  const slot = document.querySelectorAll('.slot');
-
+    const slot = document.querySelector('.slot');
     const symbols = slot.querySelector('.symbols');
     symbols.style.transition = 'none';
-    symbols.style.top = '0';
-    symbols.offsetHeight;  // Trigger reflow
+    symbols.style.top = '0px';
+    symbols.offsetHeight = '0px';  // Trigger reflow
     symbols.style.transition = 'top 0.5s ease-in-out';
 }
 
