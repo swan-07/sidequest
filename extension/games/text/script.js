@@ -125,5 +125,6 @@ button1.addEventListener("click", function() {
 
 const button2 = document.getElementById("button2");
 button2.addEventListener("click", function() {
+  chrome.runtime.sendMessage({ type: "done" });
   window.close();
 })
