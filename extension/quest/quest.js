@@ -53,7 +53,7 @@ function sleep(ms) {
 }
 
 async function questRoll() {
-  const iterations = 1;
+  const iterations = 10;
   const questEl = document.querySelector(".quest");
   let randomQuest;
 
@@ -66,7 +66,7 @@ async function questRoll() {
     questEl.setAttribute("pop", "a");
     questEl.textContent = randomQuest.name;
 
-    await sleep(800*((t*0.9)+0.1));
+    await sleep(500*((t*0.9)+0.1));
     questEl.setAttribute("pop", "b");
     await sleep(1);
   }
