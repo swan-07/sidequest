@@ -17,4 +17,4 @@ setTimeout(() => {
     button.addEventListener("click", function() {
         window.close();
     })
-}, 2 * 1000);
+}, 1 * 60 * 1000);
