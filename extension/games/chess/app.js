@@ -38,4 +38,5 @@ let moves = [];
 // moves = ['e3', 'd5', 'Qf3', 'a6', 'd4', 'Bf5', 'Qd5',
 //   'Qd5', 'Bd2', 'Qe4', 'Na3', 'c5', 'Nh3', 'Qh4', 'Rd1', 'Nc6', 'Nf4', 'Nd8', 'g3',
 //   'Bg6'];
+console.log(board.board)
 moves.forEach(move => Game.moveByNotation(move));

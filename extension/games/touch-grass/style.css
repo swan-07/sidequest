@@ -32,11 +32,16 @@ button {
 }
 body {
     background-color: #c2eba7;
-}
-
-body {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
+}
+
+.container {
+  height: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
