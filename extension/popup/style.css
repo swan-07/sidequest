@@ -68,11 +68,6 @@ body {
   align-items: center;
 }
 
-#collection {
-  display: flex;
-  flex-direction: row;
-  gap: 4px;
-}
 
 .collection-image, #gacha-result img {
   width: 50px;
