@@ -38,6 +38,8 @@ const ROWS = 6;
 let board = []
 let boardToEl = [];
 let turn = 1;
+let won = false;
+let winner = null;
 
 function init() {
   const boardEl = document.querySelector(".board");
@@ -46,6 +48,8 @@ function init() {
   board = [];
   boardToEl = [];
   turn = 1;
+  won = false;
+  winner = null;
 
   for (let y = 0; y < ROWS; y++) {
     board.push(Array(COLS).fill(0))
@@ -106,6 +110,8 @@ function drop(x, type) {
 
 const USE_RANDOM_ALG = true;
 async function take2Turn() {
+  if (won) return;
+
   await sleep(3000);
   
   if (USE_RANDOM_ALG) {
@@ -119,11 +125,12 @@ async function take2Turn() {
       };
     }
   } else {
-    
+    // NOT IMPLEMENTED
   }
 }
 
 function clickColumn(x) {
+  if (won) return;
   if (turn != 1) return;
 
   for (let y = ROWS - 1; y >= 0; y--) {
@@ -140,8 +147,29 @@ function clickColumn(x) {
   console.log("invalid movee");
 }
 
+function showWinDialog() {
+  if (!won) return;
+
+  const dialog = document.querySelector("dialog");
+  const p = dialog.querySelector("p")
+
+  if (winner == 1) {
+    p.textContent = "You won the game!"
+  } else {
+    p.textContent = "You lost the game :(\nBetter luck next time!"
+  }
+  
+  dialog.showModal();
+
+  const button = dialog.querySelector("button");
+  button.addEventListener("click", function() {
+    window.close();
+  })
+}
+
 function update() {
   const boardEl = document.querySelector(".board");
+
   boardEl.setAttribute("turn", turn);
 
   for (let y = 0; y < ROWS; y++) {
@@ -151,6 +179,16 @@ function update() {
 
       el.setAttribute("value", value);
     }
+  }
+  
+  let newWinner = chkWinner(board);
+  if (newWinner) {
+    won = true;
+    winner = newWinner;
+    boardEl.setAttribute("winner", winner);
+    boardEl.removeAttribute("turn");
+    showWinDialog();
+    return;
   }
 }
 
