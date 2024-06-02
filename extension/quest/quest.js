@@ -65,7 +65,7 @@ async function questRoll() {
     questEl.setAttribute("pop", "a");
     questEl.textContent = randomQuest.name;
 
-    await sleep(800*((t*0.9)+0.1));
+    await sleep(500*((t*0.9)+0.1));
     questEl.setAttribute("pop", "b");
     await sleep(1);
   }
@@ -139,3 +139,29 @@ document.addEventListener("DOMContentLoaded", () => {
   questRoll();
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const pointsDisplay = document.getElementById('pointsDisplay');
+
+  function getPoints() {
+      chrome.storage.local.get(['points'], (result) => {
+          const points = result.points || 0;
+          pointsDisplay.textContent = 'Points: ' + points;
+
+      });
+  }
+
+  function savePoints(points) {
+      chrome.storage.local.set({ points }, () => {
+      });
+  }
+
+  function updatePoints() {
+    chrome.storage.local.get(['points'], (result) => {
+        let points = result.points || 0;
+        points += 1; 
+        savePoints(points); 
+    });
+}
+  getPoints();
+  updatePoints()
+});
