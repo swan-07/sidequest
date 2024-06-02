@@ -1,29 +1,35 @@
 const QUESTS = [
-   {
-     "name": "touch grass",
-     "file": "/games/touch-grass/index.html",
-     "difficulty": 5
-   },
-   {
-     "name": "chess",
-     "file": "/games/chess/index.html",
-     "difficulty": 2
-   },
-   {
-     "name": "captcha",
-     "file": "/games/captcha/index.html",
-     "difficulty": 2
-   },
+  //  {
+  //    "name": "touch grass",
+  //    "file": "/games/touch-grass/index.html",
+  //    "difficulty": 5
+  //  },
+  //  {
+  //    "name": "chess",
+  //    "file": "/games/chess/index.html",
+  //    "difficulty": 2
+  //  },
+  //  {
+  //    "name": "captcha",
+  //    "file": "/games/captcha/index.html",
+  //    "difficulty": 2
+  //  },
   
-   {
-     "name": "Connect Four",
-     "file": "/games/connect-4/index.html",
-     "difficulty": 3
-   },
+  //  {
+  //    "name": "Connect Four",
+  //    "file": "/games/connect-4/index.html",
+  //    "difficulty": 3
+  //  },
   
+  // {
+  //   "name": "small sidequest",
+  //   "file": "/games/text/index.html",
+  //   "difficulty": 1
+  // },
+
   {
-    "name": "small sidequest",
-    "file": "/games/text/index.html",
+    "name": "tic-tac-toe",
+    "file": "/games/tic-tac-toe/index.html",
     "difficulty": 1
   }
 ];
