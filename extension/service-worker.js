@@ -1,5 +1,5 @@
-const WINDOW_HEIGHT = 340;
-const WINDOW_WIDTH = 220;
+const WINDOW_HEIGHT = 400;
+const WINDOW_WIDTH = 400;
 let activeWindowId = undefined;
 
 async function showQuest() {
@@ -23,15 +23,15 @@ async function showQuest() {
   activeWindowId = windowId;
 
   setTimeout(async () => {
-    await chrome.runtime.sendMessage(
-      undefined,
-      {
-        type: "id",
-        id: windowId,
-      },
-      {}
-    )
-  }, 250);
+    const windowNow = await chrome.windows.get(windowId, {
+      populate: true
+    });
+    console.log(windowNow);
+    await chrome.tabs.sendMessage(windowNow.tabs[0].id, {
+      type: "id",
+      id: windowId
+    })
+  }, 1000);
 }
 
 chrome.windows.onFocusChanged.addListener(function(windowId) {

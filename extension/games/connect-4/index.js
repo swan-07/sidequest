@@ -154,9 +154,14 @@ function showWinDialog() {
   const p = dialog.querySelector("p")
 
   if (winner == 1) {
-    p.textContent = "You won the game!"
+    p.textContent = "You won the game!";
+    confetti({
+      particleCount: 100,
+      spread: 180,
+      origin: { y: 0.8 },
+    });
   } else {
-    p.textContent = "You lost the game :(\nBetter luck next time!"
+    p.textContent = "You lost the game :(\nBetter luck next time!";
   }
   
   dialog.showModal();

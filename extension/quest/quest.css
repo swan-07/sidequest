@@ -10,8 +10,7 @@ html, body {
 }
 
 body {
-  background: maroon;
-
+  background: #3284ce;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,4 +38,17 @@ h1 {
 
 .quest[shine] {
   animation: spin 600ms ease-in-out;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+#group {
+  display: block;
+}
+
+.star {
+  width: 30px;
+  height: auto;
 }
