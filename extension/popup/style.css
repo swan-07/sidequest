@@ -59,6 +59,7 @@ body {
 .settings {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
 .settings-row {
@@ -96,4 +97,10 @@ body {
 
 img[won] {
   animation: won 1s ease-in-out;
+}
+
+input[type=checkbox] {
+  width: 16px;
+  height: 16px;
+  margin: 0px !important;
 }

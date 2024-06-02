@@ -34,7 +34,6 @@ chrome.runtime.onMessage.addListener( async (message, sender) => {
       gameInProgress = false;
     }
 
-    // PUT POINTS LOGIC HERE
     const url = sender.url;
     const parts = url.split('/');
     const secondToLastPart = parts[parts.length - 2];
@@ -47,6 +46,9 @@ chrome.runtime.onMessage.addListener( async (message, sender) => {
     var difficulty = quest ? quest.difficulty : null; // Return null or some default value if not found
     if(difficulty) awardPoints(difficulty);
     
+  } else if (message.type == "reAlarm") {
+    console.log("REALARM");
+    await updateAlarm();
   }
 })
 
@@ -142,13 +144,24 @@ chrome.windows.onRemoved.addListener(function(windowId) {
   }
 })
 
-/*
-await chrome.alarms.create("quest-alarm", {
-  delayInMinutes: 0,
-  periodInMinutes: 1
-});
+async function updateAlarm() {
+  async function getAlarmInterval() {
+    const result = await chrome.storage.local.get(["interval"]);
+    return result?.interval || 5;
+  }
+
+  await chrome.alarms.clear("quest-alarm");
+
+  const interval = await getAlarmInterval();
+  await chrome.alarms.create("quest-alarm", {
+    delayInMinutes: interval,
+    periodInMinutes: interval
+  });  
+}
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-  showQuest();
+  if (alarm.name == "quest-alarm") showQuest();
 });
-*/
+
+console.log("WE ARE STARTING UP!");
+updateAlarm();

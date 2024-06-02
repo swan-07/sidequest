@@ -30,7 +30,7 @@ async function getAlarmInterval() {
 }
 
 async function setAlarmInterval(interval) {
-  await chrome.storage.local.set({ interval });
+  await chrome.storage.local.set({ interval: parseInt(interval) });
 }
 
 async function getSkipsLeft() {
@@ -48,9 +48,9 @@ async function buySkip() {
     await setPoints(points - 10);
     const skipsLeft = await getSkipsLeft();
     await setSkipsLeft(skipsLeft + 1);
-    alert("You have successfully bought a skip!");
+    return true;
   } else {
-    alert("Not enough points to buy a skip!");
+    return false;
   }
 }
 

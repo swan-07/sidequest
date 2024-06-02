@@ -12,7 +12,14 @@ const images = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("buy-skip-button").addEventListener("click", buySkip);
+  document.getElementById("buy-skip-button").addEventListener("click", async () => {
+    if (await buySkip()) {
+      alert("You have successfully bought a skip!");
+      updatePointsDisplay(await getPoints());
+    } else {
+      alert("Not enough points to buy a skip!");
+    }
+  });
 
   const statPointsEl = document.querySelector(".stat-points");
   const statQuestsEl = document.querySelector(".stat-quests");
@@ -32,6 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
   getAlarmInterval().then(interval => intervalEl.value = interval);
   intervalEl.addEventListener("change", () => {
     setAlarmInterval(intervalEl.value);
+    chrome.runtime.sendMessage({
+      type: "reAlarm"
+    })
   })
 
   loadCollection().then(collection => {
