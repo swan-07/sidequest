@@ -6,7 +6,8 @@ async function showQuest() {
 
   const top = Math.round((displayInfo.bounds.height / 2) - (WINDOW_HEIGHT / 2));
   const left = Math.round((displayInfo.bounds.width / 2) - (WINDOW_WIDTH / 2));
-
+'
+'
   chrome.windows.create({
     type: "popup",
     focused: true,
