@@ -134,25 +134,14 @@ function rollGacha(images, gachaResultEl, collectionEl) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const tasks = await loadTasksFromJson();
-  const taskChartBody = document.getElementById("task-chart-body");
+  const taskListEl = document.getElementById("task-list");
 
   tasks.forEach(task => {
-    const row = document.createElement("tr");
-
-    const nameCell = document.createElement("td");
     const button = document.createElement("button");
     button.textContent = task.name;
     button.addEventListener("click", () => openTaskWindow(task.id));
 
-    nameCell.appendChild(button);
-    row.appendChild(nameCell);
-
-    const statusCell = document.createElement("td");
-    const statusImg = document.createElement("img");
-    statusCell.appendChild(statusImg);
-    row.appendChild(statusCell);
-
-    taskChartBody.appendChild(row);
+    taskListEl.appendChild(button);
   });
 });
 
