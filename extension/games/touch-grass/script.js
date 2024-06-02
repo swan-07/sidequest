@@ -17,3 +17,5 @@ function click() {
         alert("Get back outside! You're not done!");
     }
 }
+
+document.querySelector(".finished").addEventListener("click", () => click());
