@@ -1,5 +1,5 @@
-const WINDOW_HEIGHT = 300;
-const WINDOW_WIDTH = 180;
+const WINDOW_HEIGHT = 340;
+const WINDOW_WIDTH = 220;
 
 async function showQuest() {
   const displayInfo = (await chrome.system.display.getInfo())[0];
