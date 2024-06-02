@@ -1,38 +1,37 @@
 const QUESTS = [
-
-  // {
-  //   "name": "Touch some grass",
-  //   "file": "/games/touch-grass/index.html",
-  //   "difficulty": 5
-  // },
-  // {
-  //   "name": "chess",
-  //   "file": "/games/chess/index.html",
-  //   "difficulty": 2
-  // },
-  // {
-  //   "name": "Get silly",
-  //   "file": "get-silly.html",
-  //   "difficulty": 1
-  // },
+   {
+     "name": "Touch some grass",
+     "file": "/games/touch-grass/index.html",
+     "difficulty": 5
+   },
+   {
+     "name": "chess",
+     "file": "/games/chess/index.html",
+     "difficulty": 2
+   },
+   {
+     "name": "captcha",
+     "file": "/games/captcha/index.html",
+     "difficulty": 2
+   },
   
-  // {
-  //   "name": "Connect Four",
-  //   "file": "/games/connect-4/index.html",
-  //   "difficulty": 3
-  // },
+   {
+     "name": "Connect Four",
+     "file": "/games/connect-4/index.html",
+     "difficulty": 3
+   },
   
-  // {
-  //   "name": "Amazing quest 2",
-  //   "file": "quest-2.html",
-  //   "difficulty": 2
-  // },
+   {
+     "name": "Amazing quest 2",
+     "file": "quest-2.html",
+     "difficulty": 2
+   },
 
-  // {
-  //   "name": "wow",
-  //   "file": "very wow",
-  //   "difficulty": 1
-  // },
+   {
+     "name": "wow",
+     "file": "very wow",
+     "difficulty": 1
+   },
   {
     "name": "small sidequest",
     "file": "/games/text/index.html",
@@ -81,7 +80,7 @@ async function questRoll() {
   const left = Math.round((displayInfo.bounds.width / 2) - (windowWidth / 2));
 
   console.log("We are", ourId);
-  // alert("Our ID is " + ourId);
+   alert("Our ID is " + ourId);
   
   chrome.windows.update(ourId, {
     width: windowWidth,
