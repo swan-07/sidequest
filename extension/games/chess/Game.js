@@ -79,15 +79,10 @@ class Game {
       })
     }
 
-    if (!whiteToPlay) {
+    while (!whiteToPlay) {
       var choices = board.squaresByColour('black')
       var choice = choices[Math.floor(Math.random() * choices.length)]
       var move = choice.piece.availableSquares()[Math.floor(Math.random() * choice.piece.availableSquares().length)]
-      while (moves.length == 0 || this.simulateMove(choice.piece, move, () => Game.isInCheck('black'))) {
-        console.log(choices, choice, this.simulateMove(choice.piece, move, () => Game.isInCheck('black')));
-        choice = choices[Math.floor(Math.random() * choices.length)]
-        move = choice.piece.availableSquares()[Math.floor(Math.random() * choice.piece.availableSquares().length)]
-      }
 
       choice.domElement.click()
       move.domElement.click()
