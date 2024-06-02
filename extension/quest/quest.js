@@ -76,6 +76,7 @@ async function questRoll() {
   const left = Math.round((displayInfo.bounds.width / 2) - (windowWidth / 2));
 
   console.log("We are", ourId);
+  alert("Our ID is " + ourId);
   
   chrome.windows.update(ourId, {
     width: windowWidth,
