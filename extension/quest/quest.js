@@ -92,11 +92,17 @@ function spin() {
     symbols.appendChild(createSymbolElement(quest.name));
   });
   
-  const randomOffset = -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
+  const randomIndex = Math.floor(Math.random() * (symbolCount - 1) + 1);
+  const randomOffset = -randomIndex * symbolHeight;
+  
+  symbols.style.top = `${randomOffset}px`;
+  const symbolIndex = Math.floor(Math.abs(randomOffset) / slot.clientHight) % QUESTS.length;
+  const displayedSymbol = QUESTS[symbolIndex].name;
+
+  alert("Displayed symbol:", displayedSymbol);
+
     
   symbols.style.transition = 'top 0.5s ease-in-out';
-  symbols.style.top = `${randomOffset}px`;
-  console.log(QUESTS[Math.random() * (symbolCount - 1)].name);
   console.log("hi");
 
   spun = true;
