@@ -22,8 +22,8 @@
   
     class Modal {
       constructor() {
-        const width = "428";
-        const height = "600";
+        const width = "400";
+        const height = "400";
   
         const md = document.createElement("div");
         md.style.display = "none";
