@@ -94,15 +94,31 @@ async function showConfirmation(randomQuest, targetURL) {
       window.close();
     } else {
       alert("No skips left!");
-      confirmationDiv.style.display = "none";
-      document.location = targetURL;
+      goTo(targetURL);
     }
   });
 
   document.getElementById("no-button").addEventListener("click", () => {
     confirmationDiv.style.display = "none";
-    document.location = targetURL;
+    goTo(targetURL);
   });
+}
+
+async function goTo(url) {
+  const windowHeight = 500;
+  const windowWidth = 600;
+  const displayInfo = (await chrome.system.display.getInfo())[0];
+  const top = Math.round((displayInfo.bounds.height / 2) - (windowHeight / 2));
+  const left = Math.round((displayInfo.bounds.width / 2) - (windowWidth / 2));
+  
+  chrome.windows.update(ourId, {
+    width: windowWidth,
+    height: windowHeight,
+    top: top,
+    left: left
+  })
+
+  document.location = url;
 }
 
 async function getPoints() {
