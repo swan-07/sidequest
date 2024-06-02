@@ -72,11 +72,10 @@ function spin() {
     reset();
   }
   const slots = document.querySelectorAll('.slot');
-  let completedSlots = 0;
 
   slots.forEach((slot, index) => {
     const symbols = slot.querySelector('.symbols');
-    const symbolHeight = symbols.querySelector('.symbol')?.clientHeight || 50; // Default height if symbols are empty
+    const symbolHeight = symbols.querySelector('.symbol').clientHeight;
     const symbolCount = slotSymbols[index].length;
 
     symbols.innerHTML = '';
