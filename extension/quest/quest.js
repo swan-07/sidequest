@@ -2,30 +2,36 @@ const QUESTS = [
 
   {
     "name": "Touch some grass",
-    "file": "/games/touch-grass/index.html"
+    "file": "/games/touch-grass/index.html",
+    "difficulty": 5
   },
   {
     "name": "chess",
-    "file": "/games/chess/index.html"
+    "file": "/games/chess/index.html",
+    "difficulty": 2
   },
   {
     "name": "Get silly",
-    "file": "get-silly.html"
+    "file": "get-silly.html",
+    "difficulty": 1
   },
   
   {
     "name": "Connect Four",
-    "file": "/games/connect-4/index.html"
+    "file": "/games/connect-4/index.html",
+    "difficulty": 3
   },
   
   {
     "name": "Amazing quest 2",
-    "file": "quest-2.html"
+    "file": "quest-2.html",
+    "difficulty": 2
   },
 
   {
     "name": "wow",
-    "file": "very wow"
+    "file": "very wow",
+    "difficulty": 1
   }
 ];
 
