@@ -40,6 +40,10 @@ body {
   padding: 16px;
 }
 
+*:not(input) {
+  user-select: none;
+}
+
 .title {
   font-size: 20px;
   font-weight: 500;

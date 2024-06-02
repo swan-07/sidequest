@@ -23,3 +23,12 @@ async function registerQuest() {
     questCount: (result?.questCount || 0) + 1
   })
 }
+
+async function getInterval() {
+  const result = await chrome.storage.local.get(["interval"]);
+  return result?.interval || 5;
+}
+
+async function setInterval(interval) {
+  await chrome.storage.local.set({ interval });
+}
