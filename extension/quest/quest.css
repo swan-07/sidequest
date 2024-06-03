@@ -62,4 +62,11 @@ h1 {
   font-size: 20px;
 }
 
-
+button {
+  background: #f9a825;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
