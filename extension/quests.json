@@ -10,8 +10,8 @@
     "difficulty": 2
   },
   {
-    "name": "Captcha",
-    "id": "captcha",
+    "name": "Math",
+    "id": "amc-10",
     "difficulty": 2
   },
  
@@ -35,5 +35,10 @@
   "name": "Tic-Tac-Toe",
   "id": "tic-tac-toe",
   "difficulty": 3
+},
+{
+  "name": "Computer Science",
+  "id": "codeforces",
+  "difficulty": 5
 }
 ]

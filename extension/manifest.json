@@ -8,13 +8,13 @@
       "48": "icon/icon-48.png",
       "128": "icon/icon-128.png"
   },
-  //  "options_page": "settings/settings.html",
   "action": {
       "default_title": "Sidequest",
       "default_popup": "popup/popup.html"
   },
   "permissions": [
     "tabs",
+    "idle",
     "alarms",
     "system.display",
     "storage"
