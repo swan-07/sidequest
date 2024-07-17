@@ -14,28 +14,13 @@
     "id": "amc-10",
     "difficulty": 2
   },
- 
-  {
-    "name": "Connect Four",
-    "id": "connect-4",
-    "difficulty": 3
-  },
+
  
  {
    "name": "Small Sidequests",
    "id": "text",
    "difficulty": 1
  },
- {
-  "name": "Be Kind",
-  "id": "kindness",
-  "difficulty": 2
- },
- {
-  "name": "Tic-Tac-Toe",
-  "id": "tic-tac-toe",
-  "difficulty": 3
-},
 {
   "name": "Computer Science",
   "id": "codeforces",
