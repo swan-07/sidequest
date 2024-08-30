@@ -3,6 +3,9 @@
 
 For Hacknight (a hackathon a few weeks ago) my group won with SideQuest, a Google Extension. You can download it here: https://chromewebstore.google.com/detail/sidequest/lndafcnkmnkbjdoijfnceebpaejmhhdp
 
+<img width="398" alt="Screenshot 2024-08-30 at 1 50 44 PM" src="https://github.com/user-attachments/assets/653b1c33-de77-48a3-93a3-e1d8907d9396">
+
+
 This is the main branch on the repo.
 
 
