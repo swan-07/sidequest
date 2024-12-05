@@ -8,7 +8,13 @@ let gameInProgress = false;
 let location = null;
 let inProgressTimeout = null;
 
-// BEGIN FROM POINTS.JS
+
+
+let remainingTime = 5 * 60 * 1000; // 5 minutes in milliseconds
+let alarmStartTime = null;
+let alarmId = 'quest-alarm';
+
+
 async function getPoints() {
   const result = await chrome.storage.local.get(["points"]);
   return result?.points || 0;
@@ -21,7 +27,6 @@ async function setPoints(points) {
 async function awardPoints(awardedPoints = 1) {
   await setPoints((await getPoints()) + awardedPoints)
 }
-// END POINTS.JS
 
 chrome.runtime.onMessage.addListener( async (message, sender) => {
   console.log(message, sender);
@@ -153,6 +158,8 @@ async function updateAlarm() {
   await chrome.alarms.clear("quest-alarm");
 
   const interval = await getAlarmInterval();
+  remainingTime = interval * 60 * 1000; // Convert minutes to milliseconds
+  alarmStartTime = Date.now();
   await chrome.alarms.create("quest-alarm", {
     delayInMinutes: interval,
     periodInMinutes: interval
@@ -163,5 +170,47 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name == "quest-alarm") showQuest();
 });
 
+chrome.idle.onStateChanged.addListener((newState) => {
+  if (newState === 'active') {
+    console.log('Device is active. Resuming alarm.');
+    chrome.storage.local.get(['remainingTime'], (result) => {
+      if (result.remainingTime !== undefined) {
+        remainingTime = result.remainingTime;
+        alarmStartTime = Date.now();
+        chrome.alarms.create(alarmId, {
+          delayInMinutes: remainingTime / 60000
+        });
+      }
+    });
+  } else {
+    console.log('Device is not active. Pausing alarm.');
+    chrome.alarms.clear(alarmId, () => {
+      if (alarmStartTime !== null) {
+        const elapsedTime = Date.now() - alarmStartTime;
+        remainingTime -= elapsedTime;
+        chrome.storage.local.set({ remainingTime: remainingTime });
+        alarmStartTime = null;
+      }
+    });
+  }
+});
+
+chrome.runtime.onStartup.addListener(() => {
+  chrome.storage.local.get(['remainingTime'], (result) => {
+    if (result.remainingTime !== undefined) {
+      remainingTime = result.remainingTime;
+    }
+    chrome.idle.queryState(60, (state) => {
+      if (state === 'active') {
+        alarmStartTime = Date.now();
+        chrome.alarms.create(alarmId, {
+          delayInMinutes: remainingTime / 60000
+        });
+      }
+    });
+  });
+});
+
 console.log("WE ARE STARTING UP!");
 updateAlarm();
+
